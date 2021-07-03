@@ -8,22 +8,22 @@
 import UIKit
 
 class WelcomeScreenViewController: UIViewController {
-
+    
+    @IBOutlet weak var btnGetStarted: UIButton!
+    
+  
+    @IBAction func ditTapGetStartedBtn(_ sender: Any) {
+        navigateFormWelcomeScreenToAuthScreen()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        btnGetStarted.addBorderLine(radius: 8, width: 1, color: UIColor.white.cgColor)
+        
+        
+        
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
 
 }

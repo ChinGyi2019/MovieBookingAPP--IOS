@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+
+protocol LoginTabIndicatorDelegate {
+    
+    func onTabItem(isSelected : Bool)
+}

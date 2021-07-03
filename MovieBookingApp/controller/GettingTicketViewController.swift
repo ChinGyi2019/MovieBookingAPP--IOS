@@ -6,24 +6,83 @@
 //
 
 import UIKit
+import Foundation
+
 
 class GettingTicketViewController: UIViewController {
 
+    @IBAction func ditTapCancelBtn(_ sender: Any) {
+    }
+    @IBOutlet weak var stackViewTicket: UIStackView!
+    
+    @IBOutlet weak var ticketUIView: EraseCornerView!
+    @IBOutlet weak var stackViewTicketInfo: UIStackView!
+    
+    @IBOutlet weak var ticketInfoUIView: EraseCornerView!
+    
+    @IBOutlet weak var barcodeUIView: EraseCornerView!
+    @IBOutlet var ivTcket: UIImageView!
+   
+    @IBOutlet weak var stackViewBarCode: UIStackView!
+    
+    @IBOutlet var dashUIView: UIView!
+    
+    @IBOutlet var dashUIViewInTicketInofView: UIView!
+    @IBAction func ditTapClosBtn(_ sender: Any) {
+        weak var pvc = self.presentingViewController
+        
+    
+        self.dismiss(animated: false, completion: {
+            pvc?.performSegue(withIdentifier: "goToHome", sender: nil)
+        })
+       
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        setUpStackViewRound()
+        
+        
+        
     }
     
+    override func viewDidLayoutSubviews() {
+        ticketUIView.circleY = ticketUIView.frame.height * 0.88
+        ticketInfoUIView.circleY = ticketInfoUIView.frame.height * 0.85
+       // barcodeUIView.circleY = barcodeUIView.frame.height
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        
     }
-    */
+    
+     func setUpStackViewRound(){
+       
+        //ImageView ticket
+        ivTcket.layer.cornerRadius = 16
+        ivTcket.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+        //Ticket UIView
+        ticketUIView.layer.masksToBounds = true
+        ticketUIView.circleRadius = 16.0
+        ticketUIView.layer.cornerRadius = 16
+        ticketUIView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+        //TicketInfoUIView
+        ticketInfoUIView.layer.masksToBounds = true
+        ticketInfoUIView.circleRadius = 16.0
+        ticketUIView.layer.cornerRadius = 16
+        ticketInfoUIView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+
+        //BarCodeUiView
+        barcodeUIView.layer.masksToBounds = true
+        barcodeUIView.layer.cornerRadius = 16
+        barcodeUIView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        
+        
+        //DashUIView
+        dashUIView.addDashedBorder()
+        dashUIViewInTicketInofView.addDashedBorder()
+
+    }
+    
 
 }

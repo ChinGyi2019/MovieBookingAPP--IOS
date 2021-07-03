@@ -7,8 +7,10 @@
 
 import UIKit
 
-class VisaCardCollectionViewCell: UICollectionViewCell {
-
+class VisaCardCollectionViewCell: UIView {
+    let width = 0
+    let height = 0
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

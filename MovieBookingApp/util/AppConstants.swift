@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+let seat_type_available = "SEAT_AVAILABLE"
+let seat_type_taken = "SEAT_TAKEN"
+let seat_type_text = "SEAT_TEXT"
+let seat_type_empty = "SEAT_EMPTY"
+

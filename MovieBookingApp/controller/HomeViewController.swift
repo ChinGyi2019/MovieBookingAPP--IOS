@@ -15,7 +15,7 @@ class HomeViewController: UIViewController, MovieItemDelegate {
     
     
     
-    @IBOutlet var stackViewLogout: UIStackView!
+   
     @IBOutlet weak var collectionViewCommingSoon: UICollectionView!
     @IBOutlet weak var collectionViewNowShowing: UICollectionView!
     
