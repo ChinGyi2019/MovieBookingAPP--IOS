@@ -2,7 +2,7 @@
 
 <h2> The MovieBooking App<h2>
   
-<h4>This app is build for my Student projects. It s just a cinema booking app. </h4>
+<h4>This app is build for my Student projects. It s just a cinema booking app.</h4>
 
 <p float="left">
   
