@@ -16,7 +16,7 @@
   <img name = "Details Screen" src="https://github.com/ChinGyi2019/MovieBookingAPP--IOS/blob/main/dummy/Screen%20Shot%202021-07-03%20at%2016.11.14.png" width="200" height="400" />
   
    <img name = "Details Screen" src="https://github.com/ChinGyi2019/MovieBookingAPP--IOS/blob/main/dummy/Screen%20Shot%202021-07-03%20at%2016.11.22.png" width="200" height="400" />
-  <img name = "Details Screen" src=" https://github.com/ChinGyi2019/MovieBookingAPP--IOS/blob/main/dummy/Screen%20Shot%202021-07-03%20at%2016.11.31.png" width="200" height="400" />
+  <img name = "Details Screen" src="https://github.com/ChinGyi2019/MovieBookingAPP--IOS/blob/main/dummy/Screen%20Shot%202021-07-03%20at%2016.11.31.png" width="200" height="400" />
     <img name = "Details Screen" src="https://github.com/ChinGyi2019/MovieBookingAPP--IOS/blob/main/dummy/Screen%20Shot%202021-07-03%20at%2016.11.42.png" width="200" height="400" />
  
  
