@@ -7,7 +7,11 @@ target 'MovieBookingApp' do
 
   # Pods for MovieBookingApp
  
-pod 'SideMenu'
-
-pod 'MMText'
+  pod 'SideMenu'
+  pod 'MMText'
+  pod 'Alamofire', '~> 5.4'
+  pod 'Wormholy', :configurations => ['Debug']
+  pod 'SDWebImage', '~> 5.0'
+  pod 'YouTubePlayer'
+  pod 'GoogleSignIn', '~> 6.0.0' 
 end

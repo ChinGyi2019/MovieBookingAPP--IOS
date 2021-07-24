@@ -31,72 +31,102 @@ extension UIStoryboard{
 }
 
 extension UIViewController{
-    //Route of AuthStoryBoard
+    //MARK:- Route of AuthStoryBoard
     func navigateFormWelcomeScreenToAuthScreen(){
         guard let vc = UIStoryboard.authStoryBoard().instantiateViewController(identifier: AuthenticationViewController.identifier) as? AuthenticationViewController else{return}
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .flipHorizontal
-    present(vc,animated: true)
-        
+      
+    self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func navigateFormAuthScreenToHomeScreen(){
         guard let vc = UIStoryboard.mainStoryBoard().instantiateViewController(identifier: HomeViewController.identifier) as? HomeViewController else{return}
-        vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .flipHorizontal
-    present(vc,animated: true)
+        vc.modalPresentationStyle = .fullScreen
+
+       // present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+  
         
     }
     
     
     
-    //Route of Home StoryBoard Navigation
-    func navigateFormHomeToMovieDetailsScreen(){
+    //MARK:- Home StoryBoard Navigation
+    func navigateFormHomeToMovieDetailsScreen(movieId : Int){
         guard let vc = UIStoryboard.mainStoryBoard().instantiateViewController(identifier: MovieDetailsViewController.identifier) as? MovieDetailsViewController else{return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .flipHorizontal
-    present(vc,animated: true)
+        vc.movieID = movieId
+        self.navigationController?.pushViewController(vc, animated: true)
+    
         
     }
     
-    func navigateFormMovieDetailsScreenToDateChoosingScreen(){
+    func navigateFormMovieDetailsScreenToDateChoosingScreen(movieId : Int,
+                                                            movieName : String){
         guard let vc = UIStoryboard.mainStoryBoard().instantiateViewController(identifier: DateViewController.identifier) as? DateViewController else{return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .flipHorizontal
-    present(vc,animated: true)
+        vc.movieID = movieId
+        vc.movieName = movieName
+        self.navigationController?.pushViewController(vc, animated: true)
+  
         
     }
     
-    func navigateFormDateChoosingScreenToSeatsChoosingScreen(){
+    func navigateFormDateChoosingScreenToSeatsChoosingScreen(
+        movieId : Int,
+        movieName : String,
+        timeSlot : Timeslot,
+        cinema : Cinema,
+        bookingDate : Date){
         guard let vc = UIStoryboard.mainStoryBoard().instantiateViewController(identifier: MovieSeatViewController.identifier) as? MovieSeatViewController else{return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .flipHorizontal
-    present(vc,animated: true)
+        
+        vc.movieName = movieName
+        vc.movieID = movieId
+        vc.cinema = cinema
+        vc.bookingDate = bookingDate
+        vc.cinemaDayTimeslot = timeSlot
+    
+        self.navigationController?.pushViewController(vc, animated: true)
+  
         
     }
     
-    func navigateFormSeatsChoosingScreenToBillingScreen(){
-        guard let vc = UIStoryboard.paymentStoryBoard().instantiateViewController(identifier: PaymentMethodViewController.identifier) as? PaymentMethodViewController else{return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .flipHorizontal
+    func navigateFormSeatsChoosingScreenToBillingScreen(
+        totalPrice : Double,
+        movieID : Int,
+        cinemaID: Int,
+        selectedSeats : [MovieSeatVO],
+        bookingDate : Date?
+    ){
+        guard let vc = UIStoryboard.paymentStoryBoard().instantiateViewController(identifier: BillingScreenViewController.identifier) as? BillingScreenViewController else{return}
+        vc.totalPrice = totalPrice
+        vc.movieID = movieID
+        vc.selectedSeats = selectedSeats
+        vc.bookingDate = bookingDate
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    func navigateFormHomeToLoginScreen(){
+        guard let vc = UIStoryboard.authStoryBoard().instantiateViewController(identifier: WelcomeScreenViewController.identifier) as? WelcomeScreenViewController else{return}
+        self.navigationController?.removeFromParent()
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
     
-    //Route of Payment StoryBoard
+    //MARK:- Route of Payment StoryBoard
     func navigateFromBillingScreenToPaymentMethodScreen(){
         guard let vc = UIStoryboard.paymentStoryBoard().instantiateViewController(identifier: PaymentMethodViewController.identifier) as? PaymentMethodViewController else{return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .flipHorizontal
-    present(vc,animated: true)
+
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
     
     func navigateFromPaymentMethodScreenToGettingTicketScreen(){
         guard let vc = UIStoryboard.paymentStoryBoard().instantiateViewController(identifier: GettingTicketViewController.identifier) as? GettingTicketViewController else{return}
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .flipHorizontal
-    present(vc,animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
+      
     }
     
     func navigateFromGettingTicketScreenToHomeScreen(){

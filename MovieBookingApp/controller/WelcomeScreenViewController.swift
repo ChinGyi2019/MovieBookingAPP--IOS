@@ -17,10 +17,16 @@ class WelcomeScreenViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        initView()
+        
+        
+    }
+    
+    fileprivate func initView(){
         btnGetStarted.addBorderLine(radius: 8, width: 1, color: UIColor.white.cgColor)
         
-        
-        
+        navigationController?.navigationBar.isHidden = true
     }
     
 

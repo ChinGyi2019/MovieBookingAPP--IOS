@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VisaCardCollectionViewCell: UIView {
+class VisaCardCollectionViewCell: UICollectionViewCell {
     let width = 0
     let height = 0
    

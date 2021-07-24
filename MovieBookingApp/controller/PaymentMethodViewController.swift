@@ -16,8 +16,21 @@ class PaymentMethodViewController: UIViewController {
     @IBAction func didTapConfirmBtn(_ sender: Any) {
         navigateFromPaymentMethodScreenToGettingTicketScreen()
     }
-    @IBAction func ditTapBackBtn(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+   
+    
+    @IBAction func didTapAddNewCard(_ sender: Any) {
+    
+        if stackViewNewCard.isHidden{
+            stackViewNewCard.isHidden = false
+            addNewBtn.setImage(UIImage(systemName: "minus.circle.fill"), for: .normal)
+            addNewBtn.setTitle("Cancel", for: .normal)
+        }else{
+            addNewBtn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
+            stackViewNewCard.isHidden = true
+            addNewBtn.setTitle("Add New Card", for: .normal)
+          
+        }
+       
     }
     
     @IBOutlet weak var textFieldCardNumber: MMTextField!
@@ -26,8 +39,11 @@ class PaymentMethodViewController: UIViewController {
     
     @IBOutlet weak var textFieldCardHolder: MMTextField!
     @IBOutlet weak var collectionViewVisaCard: UICollectionView!
+    @IBOutlet weak var addNewBtn: UIButton!
+    @IBOutlet weak var stackViewNewCard: UIStackView!
     
     let collectionFlowLayout = UICollectionViewFlowLayout()
+    //private var isShowNewCardView = false
     override class func awakeFromNib() {
         
     }
@@ -35,11 +51,18 @@ class PaymentMethodViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initView()
+       
+
+    }
+    
+    fileprivate func initView(){
+        navigationItem.title = "Choose Visa"
+        
         setUpTextField()
         
         registerCell()
         iCoresalView.type = .rotary
-
     }
     
     
@@ -47,11 +70,6 @@ class PaymentMethodViewController: UIViewController {
     fileprivate func registerCell(){
         iCoresalView.delegate = self
         iCoresalView.dataSource = self
-//        collectionViewVisaCard.delegate = self
-//        collectionViewVisaCard.dataSource = self
-        
-//        collectionViewVisaCard.registerForCell(identifier: VisaCardCollectionViewCell.identifier)
-        
 
     }
     
@@ -78,32 +96,7 @@ class PaymentMethodViewController: UIViewController {
     }
     
     
-//extension PaymentMethodViewController : UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        //configureCollectionViewLayoutItemSize()
-//    }
-//
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        3
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueCell(identifier: VisaCardCollectionViewCell.identifier, indexPath: indexPath)
-//
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let _ = collectionView.bounds.width/1.3
-//        let _ = CGFloat(200)
-//
-////        return CGSize(width: collectionView.contentOffset.x + collectionView.bounds.width / 2, height: collectionView.bounds.height / 2)
-//
-//        return CGSize(width:collectionView.bounds.width/1, height: CGFloat(200))
-//    }
-//
-//
+
 }
 
 extension PaymentMethodViewController : iCarouselDelegate, iCarouselDataSource{
@@ -116,12 +109,11 @@ extension PaymentMethodViewController : iCarouselDelegate, iCarouselDataSource{
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        //let cell = VisaCardCollectionViewCell()
-        let tempView = UIView(frame: CGRect(x: 0, y: 0, width: view?.bounds.width ?? 50 / 0.8, height: view?.bounds.height ?? 200 ))
-       
-        tempView.backgroundColor = .gray
+    
+        let visaUIView = VisaCardView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 1.2 , height: view?.frame.height ?? 230))
         
-        return tempView
+
+        return visaUIView
     }
     
     func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {

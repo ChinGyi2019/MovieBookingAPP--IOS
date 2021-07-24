@@ -26,6 +26,9 @@ class GettingTicketViewController: UIViewController {
     @IBOutlet weak var stackViewBarCode: UIStackView!
     
     @IBOutlet var dashUIView: UIView!
+
+    
+    
     
     @IBOutlet var dashUIViewInTicketInofView: UIView!
     @IBAction func ditTapClosBtn(_ sender: Any) {
@@ -40,10 +43,21 @@ class GettingTicketViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initView()
+        
+    }
+    
+    fileprivate func initView(){
+        navigationItem.title = "Get Your Tickets"
+        let doneBarButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapDoneButton))
+
+        navigationItem.rightBarButtonItem = doneBarButton
         setUpStackViewRound()
-        
-        
-        
+    }
+    
+    @objc func didTapDoneButton(){
+        print("Done Clicked")
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     override func viewDidLayoutSubviews() {

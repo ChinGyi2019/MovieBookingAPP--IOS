@@ -9,5 +9,5 @@ import Foundation
 
 
 protocol MovieItemDelegate {
-    func onMovieTap()
+    func onMovieTap(movieId : Int)
 }

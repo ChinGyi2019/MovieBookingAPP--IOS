@@ -52,7 +52,7 @@ class RatingControl: UIStackView {
         
         clearExistingButton()
         
-        for _ in 0...starCount{
+        for _ in 0 ..< starCount{
             let button = UIButton()
             
             button.setImage(UIImage(named: "empty_star"), for: .normal)

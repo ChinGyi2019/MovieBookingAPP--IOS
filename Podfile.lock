@@ -1,20 +1,60 @@
 PODS:
+  - Alamofire (5.4.3)
+  - AppAuth (1.4.0):
+    - AppAuth/Core (= 1.4.0)
+    - AppAuth/ExternalUserAgent (= 1.4.0)
+  - AppAuth/Core (1.4.0)
+  - AppAuth/ExternalUserAgent (1.4.0)
+  - GoogleSignIn (6.0.0):
+    - AppAuth (~> 1.4)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GTMAppAuth (1.2.2):
+    - AppAuth/Core (~> 1.4)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - GTMSessionFetcher/Core (1.6.1)
   - MMText (1.3.6)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
   - SideMenu (6.5.0)
+  - Wormholy (1.6.4)
+  - YouTubePlayer (0.7.2)
 
 DEPENDENCIES:
+  - Alamofire (~> 5.4)
+  - GoogleSignIn (~> 6.0.0)
   - MMText
+  - SDWebImage (~> 5.0)
   - SideMenu
+  - Wormholy
+  - YouTubePlayer
 
 SPEC REPOS:
   trunk:
+    - Alamofire
+    - AppAuth
+    - GoogleSignIn
+    - GTMAppAuth
+    - GTMSessionFetcher
     - MMText
+    - SDWebImage
     - SideMenu
+    - Wormholy
+    - YouTubePlayer
 
 SPEC CHECKSUMS:
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
+  GoogleSignIn: b7779a809e1dfb32ebb43131b10d8bfcd53c1383
+  GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
+  GTMSessionFetcher: 36689134877faeb055b27dfa4ccc9ceaa42e029e
   MMText: 8078f4f2cb256db1633d25d16dfb8a689f669687
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
+  Wormholy: 2e70f64227e010d363f8d33268369f77faf12471
+  YouTubePlayer: 2b5f2830d8f9b2cde942083211291e382c9e6bd5
 
-PODFILE CHECKSUM: 39685bff6e566a65e28c784c21f2366051fdfc0b
+PODFILE CHECKSUM: ab9134d1233c6d8b1c699fb01db21a3d724b56c2
 
 COCOAPODS: 1.10.1

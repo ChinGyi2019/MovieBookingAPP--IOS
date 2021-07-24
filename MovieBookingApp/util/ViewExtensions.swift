@@ -69,3 +69,67 @@ extension UIView{
             layer.addSublayer(shapeLayer)
         }
 }
+//MARK:- Show Toast
+extension UIViewController {
+
+func showToast(message : String, font: UIFont) {
+
+    let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
+    toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+    toastLabel.textColor = UIColor.white
+    toastLabel.font = font
+    toastLabel.textAlignment = .center;
+    toastLabel.text = message
+    toastLabel.alpha = 1.0
+    toastLabel.layer.cornerRadius = 10;
+    toastLabel.clipsToBounds  =  true
+    self.view.addSubview(toastLabel)
+    UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+         toastLabel.alpha = 0.0
+    }, completion: {(isCompleted) in
+        toastLabel.removeFromSuperview()
+    })
+}
+    
+    func showAlert(title : String, message : String){
+        // create the alert
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.destructive, handler: nil))
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+}
+
+//MARK:- UITextField
+extension UITextField {
+    func setBottomBorderOnlyWith(color: CGColor) {
+        self.borderStyle = .none
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = color
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 0.0
+    }
+    
+    func isError(baseColor: CGColor, numberOfShakes shakes: Float, revert: Bool) {
+            let animation: CABasicAnimation = CABasicAnimation(keyPath: "shadowColor")
+            animation.fromValue = baseColor
+            animation.toValue = UIColor.red.cgColor
+            animation.duration = 0.4
+            if revert { animation.autoreverses = true } else { animation.autoreverses = false }
+            self.layer.add(animation, forKey: "")
+
+            let shake: CABasicAnimation = CABasicAnimation(keyPath: "position")
+            shake.duration = 0.07
+            shake.repeatCount = shakes
+            if revert { shake.autoreverses = true  } else { shake.autoreverses = false }
+            shake.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 10, y: self.center.y))
+            shake.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 10, y: self.center.y))
+            self.layer.add(shake, forKey: "position")
+        }
+}

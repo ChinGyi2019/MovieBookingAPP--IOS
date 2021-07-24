@@ -10,29 +10,48 @@ import UIKit
 
 class MovieDetailsViewController: UIViewController {
     
-    @IBAction func ditTapBackBtn(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-  
-
+    
+    
+    
     @IBAction func ditTapGetYourTicketBtn(_ sender: Any) {
-        navigateFormMovieDetailsScreenToDateChoosingScreen()
+        
+        navigateFormMovieDetailsScreenToDateChoosingScreen(movieId: movieID, movieName: movieName)
     }
-    @IBOutlet weak var btnMystery: UIButton!
-    
-   
-  
-    @IBOutlet weak var btnAdventure: UIButton!
-    
     
     @IBOutlet weak var collectionViewCast: UICollectionView!
+    @IBOutlet weak var collectionViewGenre: UICollectionView!
+    
+    @IBOutlet weak var lblMovieTitle: UILabel!
+    @IBOutlet weak var lblDuration: UILabel!
+    @IBOutlet weak var imdbRation: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
+    @IBOutlet weak var ivBackDrop: UIImageView!
+    
+    @IBOutlet weak var rationControl: RatingControl!
+    
+    
+    
+    
+    
+    var movieID : Int = -1
+    var movieName : String = ""
+    private let networkingAgent = AFNetworkingAgent.shared
+    private var casts = [Cast]()
+    private var genres = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpButtonRound()
+        initView()
+        
+        fetchMovieDetails(id: movieID)
+    }
+    
+    fileprivate func initView(){
+        
+        print(movieID)
         setUpDataSourceAndDelegate()
-      //registerCell
+        
         registerCell()
     }
     
@@ -40,33 +59,104 @@ class MovieDetailsViewController: UIViewController {
     fileprivate func setUpDataSourceAndDelegate(){
         collectionViewCast.dataSource = self
         collectionViewCast.delegate = self
+        
+        collectionViewGenre.dataSource = self
+        collectionViewGenre.delegate = self
     }
     
     fileprivate func registerCell(){
-    collectionViewCast.registerForCell(identifier: CastsCollectionViewCell.identifier)
+        collectionViewGenre.registerForCell(identifier: MoveGenreCollectionViewCell.identifier)
+        collectionViewCast.registerForCell(identifier: CastsCollectionViewCell.identifier)
     }
     
-    fileprivate func setUpButtonRound(){
-        btnMystery.addBorderLine(radius: 16, width: 1, color: UIColor.black.cgColor)
+    
+    //MARK:- FetchMovieDetails
+    fileprivate func fetchMovieDetails(id : Int){
+        networkingAgent.fetchMovieDetails(movieId: id) { response in
+            switch response {
+            case .success(let data):
+                self.bindDetails(data)
+            case .error(let error):
+                debugPrint(error)
+            }
+        }
+    }
+    
+    fileprivate func bindDetails(_ data : MovieDetailsResponse){
         
-        btnAdventure.addBorderLine(radius: 16, width: 1, color: UIColor.black.cgColor)
+        let backDropPath = "\(AppConstants.BASE_ORIGINAL_IMG_URL)/\(data.data?.posterPath ?? "")"
+        
+        ivBackDrop.sd_setImage(with: URL(string: backDropPath))
+        //Casts
+        casts = data.data?.casts ?? [Cast]()
+        collectionViewCast.reloadData()
+        
+        //Genre
+        genres = data.data?.genres ?? [String]()
+        debugPrint(genres)
+        collectionViewGenre.reloadData()
+        
+        lblMovieTitle.text = data.data?.originalTitle
+        movieName = data.data?.originalTitle ?? ""
+        
+        navigationItem.title = data.data?.originalTitle
+        lblDescription.text = data.data?.overview
+        let runTime = data.data?.runtime ?? 0
+        let runHour : Int = runTime / 60
+        let runMinute : Int = runTime % 60
+        lblDuration.text = "\(runHour)h \(runMinute)m"
+        imdbRation.text = "IMDb \(data.data?.rating ?? 0)"
+        
+        rationControl.starCount = 5
+        rationControl.rating = Int((data.data?.rating ?? 0.0) * 0.5)
+        
     }
     
-
-   
+    
+    
 }
 extension MovieDetailsViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        15
+        
+        if collectionView == collectionViewCast{
+            return casts.count
+        }else if collectionView == collectionViewGenre{
+            return genres.count
+        }else{
+            return 0
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueCell(identifier: CastsCollectionViewCell.identifier, indexPath: indexPath)
-        return cell
+        if collectionView == collectionViewCast{
+            let cell = collectionView.dequeueCell(identifier: CastsCollectionViewCell.identifier, indexPath: indexPath) as CastsCollectionViewCell
+            cell.data = casts[indexPath.row]
+            return cell
+        }else if collectionView == collectionViewGenre{
+            let cell = collectionView.dequeueCell(identifier: MoveGenreCollectionViewCell.identifier, indexPath: indexPath) as MoveGenreCollectionViewCell
+            cell.data = genres[indexPath.row]
+            return cell
+        }else{
+          return  UICollectionViewCell()
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: CGFloat(64), height: CGFloat(64))
+        
+        if collectionView == collectionViewCast{
+            return CGSize(width: CGFloat(64), height: CGFloat(64))
+        }else if collectionView == collectionViewGenre{
+            let width  = collectionView.bounds.width / 5
+            let height = collectionView.bounds.height
+            return CGSize(width: width, height: height)
+        }else{
+            return CGSize(width: 0, height: 0)
+        }
+        
+        
+        
     }
     
     
