@@ -26,10 +26,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="792"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pyo-gd-Kgv">
-                                                <rect key="frame" x="0.0" y="0.0" width="390" height="735"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="727"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="g0Z-EJ-qgl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="735"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="727"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="a6o-wl-GjK">
                                                                 <rect key="frame" x="24" y="0.0" width="342" height="287"/>
@@ -57,18 +57,18 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="cfR-mh-W4a">
-                                                                <rect key="frame" x="24" y="311" width="342" height="100.33333333333331"/>
+                                                                <rect key="frame" x="24" y="311" width="342" height="92.333333333333314"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wPj-GI-cSL">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="342" height="56"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="342" height="48"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter  promo code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-zN-wCs" customClass="MMTextField" customModule="MMText">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="342" height="30"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="342" height="22"/>
                                                                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
                                                                                 <textInputTraits key="textInputTraits"/>
                                                                             </textField>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="haR-sc-iNB">
-                                                                                <rect key="frame" x="0.0" y="38" width="342" height="18"/>
+                                                                                <rect key="frame" x="0.0" y="30" width="342" height="18"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Dont't have any promo code?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AV9-U6-r1a">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="195.66666666666666" height="18"/>
@@ -87,7 +87,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Total : 0.0$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AXJ-nI-ioW">
-                                                                        <rect key="frame" x="0.0" y="80" width="342" height="20.333333333333329"/>
+                                                                        <rect key="frame" x="0.0" y="72" width="342" height="20.333333333333329"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <color key="textColor" systemColor="systemGreenColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -95,7 +95,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="LUU-Dd-4fc">
-                                                                <rect key="frame" x="24" y="435.33333333333331" width="342" height="225.66666666666669"/>
+                                                                <rect key="frame" x="24" y="427.33333333333331" width="342" height="225.66666666666669"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Method" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0s-0m-1nY">
                                                                         <rect key="frame" x="0.0" y="0.0" width="342" height="24"/>
@@ -219,7 +219,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YrW-nF-K6n">
-                                                                <rect key="frame" x="24" y="685" width="342" height="50"/>
+                                                                <rect key="frame" x="24" y="677" width="342" height="50"/>
                                                                 <color key="backgroundColor" name="color_primary"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="QoE-5V-xb4"/>
@@ -354,9 +354,9 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="wO1-kz-aGl" userLabel="New Card">
-                                                <rect key="frame" x="0.0" y="323" width="390" height="181"/>
+                                                <rect key="frame" x="0.0" y="323" width="390" height="176"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1234 43345 45444" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VYW-KR-ebB" customClass="MMTextField" customModule="MMText">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VYW-KR-ebB" customClass="MMTextField" customModule="MMText">
                                                         <rect key="frame" x="24" y="0.0" width="342" height="44.333333333333336"/>
                                                         <fontDescription key="fontDescription" name="GranthaSangamMN-Regular" family="Grantha Sangam MN" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -365,22 +365,19 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Lily Johson" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guX-Zv-EsP" customClass="MMTextField" customModule="MMText">
-                                                        <rect key="frame" x="24" y="68.333333333333314" width="342" height="44.333333333333343"/>
+                                                        <rect key="frame" x="24" y="68.333333333333314" width="342" height="39.333333333333343"/>
                                                         <fontDescription key="fontDescription" name="GranthaSangamMN-Regular" family="Grantha Sangam MN" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Card Holder"/>
-                                                        </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="hb8-XL-J4s">
-                                                        <rect key="frame" x="24" y="136.66666666666669" width="342" height="44.333333333333343"/>
+                                                        <rect key="frame" x="24" y="131.66666666666669" width="342" height="44.333333333333343"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="08/2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1kR-pr-UvU" customClass="MMTextField" customModule="MMText">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="08/2" placeholder="Expire Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1kR-pr-UvU" customClass="MMTextField" customModule="MMText">
                                                                 <rect key="frame" x="0.0" y="0.0" width="155" height="44.333333333333336"/>
                                                                 <fontDescription key="fontDescription" name="GranthaSangamMN-Regular" family="Grantha Sangam MN" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Expire Date"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Expired Date"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="150" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cv3-yx-94c" customClass="MMTextField" customModule="MMText">
@@ -396,11 +393,11 @@
                                                 </subviews>
                                                 <edgeInsets key="layoutMargins" top="0.0" left="24" bottom="0.0" right="24"/>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GPr-ia-bms">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="GPr-ia-bms">
                                                 <rect key="frame" x="0.0" y="335" width="390" height="22"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoX-x9-Zzb">
-                                                        <rect key="frame" x="24" y="0.0" width="342" height="22"/>
+                                                        <rect key="frame" x="24" y="0.0" width="171" height="22"/>
                                                         <color key="tintColor" systemColor="systemGreenColor"/>
                                                         <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="Add New Card" image="plus.circle.fill" catalog="system">
@@ -408,6 +405,17 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="didTapAddNewCard:" destination="t9s-Ya-yI4" eventType="touchUpInside" id="Chr-7a-GW8"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgx-N5-pbR">
+                                                        <rect key="frame" x="195" y="0.0" width="171" height="22"/>
+                                                        <color key="tintColor" systemColor="systemGreenColor"/>
+                                                        <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <state key="normal" title="Add New Card " image="checkmark.circle.fill" catalog="system">
+                                                            <color key="titleColor" systemColor="systemGreenColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="didTapAddCardBtn:" destination="t9s-Ya-yI4" eventType="touchUpInside" id="vcM-Tw-SZk"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -464,7 +472,9 @@
                     <connections>
                         <outlet property="addNewBtn" destination="hoX-x9-Zzb" id="5yo-oy-06d"/>
                         <outlet property="collectionViewVisaCard" destination="Kfi-Nh-0oO" id="mek-0G-sQt"/>
+                        <outlet property="confirmCardAddBtn" destination="fgx-N5-pbR" id="PyH-L4-uUt"/>
                         <outlet property="iCoresalView" destination="py1-ey-xvk" id="MuB-Ks-kKd"/>
+                        <outlet property="lblTotalPrice" destination="eeK-Cd-rkZ" id="iSb-Ld-DzW"/>
                         <outlet property="stackViewNewCard" destination="wO1-kz-aGl" id="JCE-6P-I2R"/>
                         <outlet property="textFieldCVC" destination="cv3-yx-94c" id="K6x-xa-9tU"/>
                         <outlet property="textFieldCardHolder" destination="guX-Zv-EsP" id="clx-eT-FXK"/>
@@ -801,10 +811,10 @@
     </scenes>
     <designables>
         <designable name="1kR-pr-UvU">
-            <size key="intrinsicContentSize" width="38" height="31.333333333333332"/>
+            <size key="intrinsicContentSize" width="85.333333333333329" height="31.333333333333332"/>
         </designable>
         <designable name="VYW-KR-ebB">
-            <size key="intrinsicContentSize" width="151" height="31.333333333333332"/>
+            <size key="intrinsicContentSize" width="4" height="31.333333333333332"/>
         </designable>
         <designable name="b4b-zN-wCs">
             <size key="intrinsicContentSize" width="141" height="22"/>
@@ -818,6 +828,7 @@
     </designables>
     <resources>
         <image name="barcode" width="101.66666412353516" height="55"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="creditcard" catalog="system" width="128" height="88"/>
         <image name="creditcard.fill" catalog="system" width="128" height="88"/>
         <image name="dummy_profile" width="324.66665649414062" height="333.33334350585938"/>

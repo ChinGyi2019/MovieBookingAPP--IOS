@@ -94,6 +94,7 @@ extension UIViewController{
     func navigateFormSeatsChoosingScreenToBillingScreen(
         totalPrice : Double,
         movieID : Int,
+        timeSlotID: Int,
         cinemaID: Int,
         selectedSeats : [MovieSeatVO],
         bookingDate : Date?
@@ -101,6 +102,8 @@ extension UIViewController{
         guard let vc = UIStoryboard.paymentStoryBoard().instantiateViewController(identifier: BillingScreenViewController.identifier) as? BillingScreenViewController else{return}
         vc.totalPrice = totalPrice
         vc.movieID = movieID
+        vc.cinemaID = cinemaID
+        vc.timeSlotID = timeSlotID
         vc.selectedSeats = selectedSeats
         vc.bookingDate = bookingDate
         self.navigationController?.pushViewController(vc, animated: true)
@@ -116,15 +119,49 @@ extension UIViewController{
     
     
     //MARK:- Route of Payment StoryBoard
-    func navigateFromBillingScreenToPaymentMethodScreen(){
+    func navigateFromBillingScreenToPaymentMethodScreen(
+        totalPrice : Double,
+        movieID : Int,
+        timeSlotID: Int,
+        cinemaID: Int,
+        selectedSeats : [MovieSeatVO],
+        selectedSnacks : [Snack],
+        bookingDate : Date?
+    ){
         guard let vc = UIStoryboard.paymentStoryBoard().instantiateViewController(identifier: PaymentMethodViewController.identifier) as? PaymentMethodViewController else{return}
+        
+        vc.totalPrice = totalPrice
+        vc.movieID = movieID
+        vc.cinemaID = cinemaID
+        vc.timeSlotID = timeSlotID
+        vc.selectedSeats = selectedSeats
+        vc.bookingDate = bookingDate
+        vc.selectedSnacks = selectedSnacks
 
         self.navigationController?.pushViewController(vc, animated: true)
 
     }
     
-    func navigateFromPaymentMethodScreenToGettingTicketScreen(){
+    func navigateFromPaymentMethodScreenToGettingTicketScreen(
+        totalPrice : Double,
+        movieID : Int,
+        timeSlotID: Int,
+        cinemaID: Int,
+        selectedSeats : [MovieSeatVO],
+        selectedSnacks : [Snack],
+        bookingDate : Date?,
+        selectedCardId : Int
+    ){
         guard let vc = UIStoryboard.paymentStoryBoard().instantiateViewController(identifier: GettingTicketViewController.identifier) as? GettingTicketViewController else{return}
+        
+        vc.totalPrice = totalPrice
+        vc.movieID = movieID
+        vc.cinemaID = cinemaID
+        vc.timeSlotID = timeSlotID
+        vc.selectedSeats = selectedSeats
+        vc.bookingDate = bookingDate
+        vc.selectedSnacks = selectedSnacks
+        vc.selectedCardId = selectedCardId
         self.navigationController?.pushViewController(vc, animated: true)
       
     }

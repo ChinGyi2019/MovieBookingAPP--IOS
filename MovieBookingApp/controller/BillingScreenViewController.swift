@@ -13,7 +13,8 @@ class BillingScreenViewController: UIViewController {
 
     
     @IBAction func ditTapPayBtn(_ sender: Any) {
-        navigateFromBillingScreenToPaymentMethodScreen()
+        
+        navigateFromBillingScreenToPaymentMethodScreen(totalPrice: totalPrice + snackTotalPrice, movieID: movieID, timeSlotID: timeSlotID, cinemaID: cinemaID, selectedSeats: selectedSeats, selectedSnacks: snacks, bookingDate: bookingDate)
     }
   
     
@@ -25,10 +26,20 @@ class BillingScreenViewController: UIViewController {
     private let paymentModel : PaymentModel = PaymentModelImpl.shared
     
     private var snacks = [Snack]()
+    
+ 
     private var paymentMethodList = [PaymentMethod]()
     var totalPrice : Double = 0.0
+    
+    var snackTotalPrice : Double = 0.0{
+        didSet{
+            
+            bindTotalPriceData()
+        }
+    }
     var movieID : Int = -1
     var cinemaID: Int = -1
+    var timeSlotID: Int = -1
     var selectedSeats = [MovieSeatVO]()
     var bookingDate : Date? = nil
     
@@ -97,8 +108,9 @@ class BillingScreenViewController: UIViewController {
     }
     
     private func bindTotalPriceData(){
-        lblSubTotalPrice.text = "Sub TotalPrice : \(totalPrice)$"
-        payButton.setTitle("Pay $ \(totalPrice)", for: .normal)
+        
+        lblSubTotalPrice.text = "Sub TotalPrice : \(totalPrice + snackTotalPrice)$"
+        payButton.setTitle("Pay $ \(totalPrice + snackTotalPrice)", for: .normal)
         
     }
     
@@ -107,6 +119,9 @@ class BillingScreenViewController: UIViewController {
         snacks.forEach { item in
             if item.id == snackId{
                 item.amount = ((item.amount) + 1)
+                let snackPrice = item.price ?? 0
+                snackTotalPrice += Double(snackPrice)
+                
             }
         }
         collectionViewSnacks.reloadData()
@@ -116,10 +131,13 @@ class BillingScreenViewController: UIViewController {
         print(snackId)
         snacks.forEach { item in
             if item.id == snackId{
-                if(item.amount <= 0){
-                    item.amount = 0
-                }else{
+                
+                if item.amount > 0 {
                     item.amount = item.amount - 1
+                    let snackPrice = item.price ?? 0
+                    snackTotalPrice -= Double(snackPrice)
+
+                
                 }
                
             }

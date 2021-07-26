@@ -40,7 +40,7 @@ struct UserData: Codable {
 // MARK: - Card
 struct Card: Codable {
     let id: Int?
-    let cardHolder, cardNumber, expirationDate, cardType: String?
+    let cardHolder, cardNumber, expirationDate, cardType,cvc: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -48,6 +48,7 @@ struct Card: Codable {
         case cardNumber = "card_number"
         case expirationDate = "expiration_date"
         case cardType = "card_type"
+        case cvc = "cvc"
     }
 }
 

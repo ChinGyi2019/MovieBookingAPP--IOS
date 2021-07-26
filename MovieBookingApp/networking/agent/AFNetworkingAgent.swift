@@ -9,7 +9,8 @@ import Foundation
 import Alamofire
 
 class AFNetworkingAgent: MovieNetworkingProtocol {
-  
+   
+    
 
     
     
@@ -20,7 +21,9 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
    
     private var headers: HTTPHeaders {
         get{
-            return [.authorization(bearerToken: UserDefaultHelper.shared.getToken())]
+            return [.authorization(bearerToken: UserDefaultHelper.shared.getToken()),
+                    .contentType("application/json"),
+                    .accept("application/json")]
         }
     }
     
@@ -260,6 +263,66 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
         AF.request(MovieBookingEndPoint.paymentMethod,method: .get,headers: headers)
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: PaymentMethodListResponse.self)
+            { response in
+            switch response.result{
+            
+            case .success(let data):
+                completion(.success(data))
+            
+            case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                
+                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                
+            }
+            
+        }
+    }
+    
+    func addNewCard(card: Card, completion: @escaping (NetworkResult<AddNewCardResponse>) -> Void) {
+        AF.request(MovieBookingEndPoint.addNewCard,
+                   method: .post, parameters: card,headers: headers)
+            .validate(statusCode: 200 ..< 300)
+            .responseDecodable(of: AddNewCardResponse.self)
+            { response in
+            switch response.result{
+            
+            case .success(let data):
+                completion(.success(data))
+            
+            case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                
+                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                
+            }
+            
+        }
+    }
+    
+    func checkOut(checkOut: CheckOutModel, completion: @escaping (NetworkResult<CheckOutResponse>) -> Void) {
+        
+        let bodyData : [String :Any] = [
+            "cinema_day_timeslot_id" : checkOut.cinemaDayTimeslotID ?? -1,
+            "row" : checkOut.row ?? "",
+            "seat_number" : checkOut.seatNumber ?? "",
+            "booking_date" : checkOut.bookingDate ?? "",
+            "total_price" : checkOut.totalPrice ?? 0.0,
+            "movie_id" : checkOut.movieID ?? -1,
+            "card_id" : checkOut.cardID ?? -1,
+            "cinema_id" : checkOut.cinemaID ?? -1,
+            "snacks" : checkOut.snacks ?? [CheckOutSnack](),
+            
+    
+        ]
+    
+
+        
+        
+        AF.request(MovieBookingEndPoint.checkOut,
+                   method: .post,
+                   parameters: bodyData,
+                   headers: headers)
+            .validate(statusCode: 200 ..< 300)
+            .responseDecodable(of: CheckOutResponse.self)
             { response in
             switch response.result{
             

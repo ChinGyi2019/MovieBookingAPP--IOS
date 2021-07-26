@@ -24,8 +24,8 @@ enum MovieBookingEndPoint : URLConvertible{
     case cinemaSetingPlan(_ timeSlotId : Int,_ bookingDate : String)
     case snacks
     case paymentMethod
-    case actorDetails(_ id : Int)
-    case actorImages(_ id : Int)
+    case addNewCard
+    case checkOut
     case actorCombinedCredits(_ id : Int)
     case searchMovie(_ query : String,_ page : Int)
     
@@ -79,10 +79,10 @@ enum MovieBookingEndPoint : URLConvertible{
             return "/api/v1/snacks"
         case .paymentMethod:
             return "/api/v1/payment-methods"
-        case .actorDetails(let id):
-            return "/person/\(id)"
-        case .actorImages(let id):
-            return "/person/\(id)/images"
+        case .addNewCard:
+            return "/api/v1/card"
+        case .checkOut:
+            return "/api/v1/checkout"
         case .actorCombinedCredits(let id):
             return "/person/\(id)/combined_credits"
             

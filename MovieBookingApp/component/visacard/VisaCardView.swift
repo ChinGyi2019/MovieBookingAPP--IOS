@@ -14,6 +14,16 @@ class VisaCardView: UIView {
     // An empty implementation adversely affects performance during animation.
     
     */
+    
+    var data : Card? {
+        didSet{
+            if let card = data{
+                self.cardHolderNamelbl.text = card.cardHolder
+                self.visaCardNolbl.text = card.cardNumber
+                self.datelbl.text = card.expirationDate
+            }
+        }
+    }
 
     let visalbl : UILabel = {
         let label = UILabel()

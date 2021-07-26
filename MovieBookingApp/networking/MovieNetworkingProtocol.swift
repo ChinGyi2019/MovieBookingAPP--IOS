@@ -34,6 +34,10 @@ protocol MovieNetworkingProtocol {
     
     func fetchPaymentMethods(completion: @escaping (NetworkResult<PaymentMethodListResponse>) -> Void)
     
+    func addNewCard(card: Card, completion: @escaping (NetworkResult<AddNewCardResponse>) -> Void)
+    
+    func checkOut(checkOut: CheckOutModel, completion: @escaping (NetworkResult<CheckOutResponse>) -> Void)
+    
     
 }
 

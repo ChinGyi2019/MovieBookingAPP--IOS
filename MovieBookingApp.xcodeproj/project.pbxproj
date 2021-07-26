@@ -62,6 +62,9 @@
 		CC46393526ABF9B5006F22BB /* AvailableInCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC46393326ABF9B5006F22BB /* AvailableInCollectionViewCell.xib */; };
 		CC49B41426A97C3E00976156 /* CinemaSeatingPlanResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC49B41326A97C3E00976156 /* CinemaSeatingPlanResponse.swift */; };
 		CC4DBC7E266A2948004C1E55 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4DBC7D266A2948004C1E55 /* ViewExtensions.swift */; };
+		CC4F43D326AC5822008DDFFA /* AddNewCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4F43D226AC5822008DDFFA /* AddNewCardResponse.swift */; };
+		CC4F43D526AC6333008DDFFA /* CheckOutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4F43D426AC6333008DDFFA /* CheckOutResponse.swift */; };
+		CC4F43D726AC6382008DDFFA /* CheckOutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4F43D626AC6382008DDFFA /* CheckOutModel.swift */; };
 		CC649061267CDC5000A8F392 /* TabLoginCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC64905F267CDC5000A8F392 /* TabLoginCollectionViewCell.swift */; };
 		CC649062267CDC5000A8F392 /* TabLoginCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC649060267CDC5000A8F392 /* TabLoginCollectionViewCell.xib */; };
 		CC6D47F5269D73EB008F8DBF /* SnackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6D47F3269D73EB008F8DBF /* SnackCollectionViewCell.swift */; };
@@ -156,6 +159,9 @@
 		CC46393326ABF9B5006F22BB /* AvailableInCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvailableInCollectionViewCell.xib; sourceTree = "<group>"; };
 		CC49B41326A97C3E00976156 /* CinemaSeatingPlanResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaSeatingPlanResponse.swift; sourceTree = "<group>"; };
 		CC4DBC7D266A2948004C1E55 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		CC4F43D226AC5822008DDFFA /* AddNewCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCardResponse.swift; sourceTree = "<group>"; };
+		CC4F43D426AC6333008DDFFA /* CheckOutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutResponse.swift; sourceTree = "<group>"; };
+		CC4F43D626AC6382008DDFFA /* CheckOutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutModel.swift; sourceTree = "<group>"; };
 		CC64905F267CDC5000A8F392 /* TabLoginCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabLoginCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC649060267CDC5000A8F392 /* TabLoginCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabLoginCollectionViewCell.xib; sourceTree = "<group>"; };
 		CC6D47F3269D73EB008F8DBF /* SnackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -252,6 +258,8 @@
 				CC49B41326A97C3E00976156 /* CinemaSeatingPlanResponse.swift */,
 				CC3D7B4726AADAD6007697FC /* PaymentMethodListResponse.swift */,
 				CC3D7B4926AADAF2007697FC /* SnackListResponse.swift */,
+				CC4F43D226AC5822008DDFFA /* AddNewCardResponse.swift */,
+				CC4F43D426AC6333008DDFFA /* CheckOutResponse.swift */,
 			);
 			path = response;
 			sourceTree = "<group>";
@@ -284,6 +292,7 @@
 				CC420CA826A5CD4B00E26C5F /* MovieType.swift */,
 				CC27C7F026A6C3CC00C9B300 /* DateModel.swift */,
 				CC46392F26ABF7D6006F22BB /* AvailableInItemModel.swift */,
+				CC4F43D626AC6382008DDFFA /* CheckOutModel.swift */,
 			);
 			path = vos;
 			sourceTree = "<group>";
@@ -769,7 +778,9 @@
 				CC46393426ABF9B5006F22BB /* AvailableInCollectionViewCell.swift in Sources */,
 				CCF52F60266FBA5D00C781C5 /* ZoomAndSnapFlowLayout.swift in Sources */,
 				CC7C0012266FA9040031DA9F /* PaymentMethodViewController.swift in Sources */,
+				CC4F43D326AC5822008DDFFA /* AddNewCardResponse.swift in Sources */,
 				CC649061267CDC5000A8F392 /* TabLoginCollectionViewCell.swift in Sources */,
+				CC4F43D726AC6382008DDFFA /* CheckOutModel.swift in Sources */,
 				CC6D47FA269D7A4D008F8DBF /* PaymethodCollectionViewCell.swift in Sources */,
 				CC34D9F0266B82B500AF6E59 /* AppConstants.swift in Sources */,
 				CC85C760266DE436002CE5E7 /* WelcomeScreenViewController.swift in Sources */,
@@ -780,6 +791,7 @@
 				CC8B3F872689D95A00C87505 /* iCarousel.m in Sources */,
 				CC4050AF26A7117C0008593E /* TimeSlotDelegate.swift in Sources */,
 				CC2D47E0266E6D1C0066EDB3 /* Router.swift in Sources */,
+				CC4F43D526AC6333008DDFFA /* CheckOutResponse.swift in Sources */,
 				CC2BF6AD26A334140039DE48 /* User.swift in Sources */,
 				CC3D7B4826AADAD6007697FC /* PaymentMethodListResponse.swift in Sources */,
 				CCEE8F7F26A01AF900BEC1CF /* MovieNetworkingProtocol.swift in Sources */,

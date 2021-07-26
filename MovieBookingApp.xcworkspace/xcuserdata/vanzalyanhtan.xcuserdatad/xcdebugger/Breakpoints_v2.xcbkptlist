@@ -100,5 +100,129 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D48D285D-1B79-4B8B-882D-2D85AA542A73"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieBookingApp/controller/BillingScreenViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "BillingScreenViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "D48D285D-1B79-4B8B-882D-2D85AA542A73 - e848fd3ed5b75fa4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieBookingApp.BillingScreenViewController.totalPrice.getter : Swift.Double"
+                  moduleName = "MovieBookingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vanzalyanhtan/Desktop/Xcode%20Projects/MovieBookingApp/MovieBookingApp/controller/BillingScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "113">
+               </Location>
+               <Location
+                  uuid = "D48D285D-1B79-4B8B-882D-2D85AA542A73 - 5615b79aeda10fa8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieBookingApp.BillingScreenViewController.totalPrice.setter : Swift.Double"
+                  moduleName = "MovieBookingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vanzalyanhtan/Desktop/Xcode%20Projects/MovieBookingApp/MovieBookingApp/controller/BillingScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "137">
+               </Location>
+               <Location
+                  uuid = "D48D285D-1B79-4B8B-882D-2D85AA542A73 - f1632880ee0607a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieBookingApp.BillingScreenViewController.totalPrice.modify : Swift.Double"
+                  moduleName = "MovieBookingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vanzalyanhtan/Desktop/Xcode%20Projects/MovieBookingApp/MovieBookingApp/controller/BillingScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  uuid = "D48D285D-1B79-4B8B-882D-2D85AA542A73 - 443ae5257fa3e232"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieBookingApp.BillingScreenViewController.totalPrice.modify : Swift.Double with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "MovieBookingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vanzalyanhtan/Desktop/Xcode%20Projects/MovieBookingApp/MovieBookingApp/controller/BillingScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "10">
+               </Location>
+               <Location
+                  uuid = "D48D285D-1B79-4B8B-882D-2D85AA542A73 - 794ca59412bd7905"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieBookingApp.BillingScreenViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; MovieBookingApp.BillingScreenViewController"
+                  moduleName = "MovieBookingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vanzalyanhtan/Desktop/Xcode%20Projects/MovieBookingApp/MovieBookingApp/controller/BillingScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "909">
+               </Location>
+               <Location
+                  uuid = "D48D285D-1B79-4B8B-882D-2D85AA542A73 - 4bf8a87692b98ebd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieBookingApp.BillingScreenViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;MovieBookingApp.BillingScreenViewController&gt;"
+                  moduleName = "MovieBookingApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vanzalyanhtan/Desktop/Xcode%20Projects/MovieBookingApp/MovieBookingApp/controller/BillingScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "853">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "78259D8A-7AE5-41E8-B36C-39AC01B927DB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieBookingApp/networking/agent/AFNetworkingAgent.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
+            landmarkName = "checkOut(checkOut:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

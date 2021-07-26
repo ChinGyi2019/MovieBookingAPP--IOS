@@ -28,18 +28,20 @@ class GettingTicketViewController: UIViewController {
     @IBOutlet var dashUIView: UIView!
 
     
+    var movieID : Int = -1
+    var cinemaID: Int = -1
+    var timeSlotID: Int = -1
+    var selectedSeats = [MovieSeatVO]()
+    var bookingDate : Date? = nil
+    var selectedSnacks = [Snack]()
+    var totalPrice : Double = 0.0
+    var selectedCardId : Int = -1
+    
+    private let paymentModel : PaymentModel = PaymentModelImpl.shared
     
     
     @IBOutlet var dashUIViewInTicketInofView: UIView!
-    @IBAction func ditTapClosBtn(_ sender: Any) {
-        weak var pvc = self.presentingViewController
-        
-    
-        self.dismiss(animated: false, completion: {
-            pvc?.performSegue(withIdentifier: "goToHome", sender: nil)
-        })
-       
-    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,6 +55,8 @@ class GettingTicketViewController: UIViewController {
 
         navigationItem.rightBarButtonItem = doneBarButton
         setUpStackViewRound()
+        
+        getCheckOut()
     }
     
     @objc func didTapDoneButton(){
@@ -96,6 +100,49 @@ class GettingTicketViewController: UIViewController {
         dashUIView.addDashedBorder()
         dashUIViewInTicketInofView.addDashedBorder()
 
+    }
+    fileprivate func getCheckOut(){
+        var row = ""
+        var seatNumber = ""
+        
+        selectedSeats.forEach { seat in
+            row += "\(seat.symbol ?? ""),"
+            seatNumber += "\(seat.seatName ?? ""),"
+        }
+        if !row.isEmpty{
+            row.removeLast()
+        }
+        if !seatNumber.isEmpty{
+            seatNumber.removeLast()
+        }
+        print(selectedCardId)
+        let selectedCheckOutSnack  = selectedSnacks.map{$0.toCheckOutSnack()}
+        print(selectedCheckOutSnack.count)
+        let checkOutData = CheckOutModel(cinemaDayTimeslotID: timeSlotID, row: row, seatNumber: seatNumber, bookingDate: bookingDate?.formattedDate, movieID: movieID, cardID: selectedCardId, cinemaID: cinemaID, totalPrice: totalPrice, snacks: selectedCheckOutSnack )
+        
+        checkOutTicket(checkOutData)
+        
+    }
+    
+    
+    fileprivate func checkOutTicket(_ checkOut : CheckOutModel){
+        
+        
+        
+        paymentModel.checkOut(checkOut: checkOut) { result in
+            switch result {
+            case .success(let data):
+                self.bindTicketsView(data)
+            case .error(let error):
+                print(error)
+            }
+        }
+        
+    }
+    fileprivate func bindTicketsView(_ ticket : CheckOutResponse){
+        
+        print(ticket)
+        
     }
     
 

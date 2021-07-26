@@ -56,4 +56,18 @@ class Snack: Codable {
         case datumDescription = "description"
         case price, image
     }
+    
+    func  toCheckOutSnack() -> CheckOutSnack {
+        return CheckOutSnack(id: self.id, quantity: amount)
+    }
+}
+
+struct CheckOutSnack : Codable{
+    var id: Int?
+    var quantity : Int = 0
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case quantity = "quantity"
+    }
 }

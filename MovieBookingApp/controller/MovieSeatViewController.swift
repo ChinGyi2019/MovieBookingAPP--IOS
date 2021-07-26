@@ -21,7 +21,7 @@ class MovieSeatViewController: UIViewController {
     @IBOutlet weak var buyTicketBtn : UIButton!
     @IBAction func didTapBuyTicketBtn(_ sender: Any) {
         
-        navigateFormSeatsChoosingScreenToBillingScreen(totalPrice: totalPrice, movieID: movieID, cinemaID: cinema?.cinemaID ?? -1, selectedSeats: selectedSeats, bookingDate: bookingDate)
+        navigateFormSeatsChoosingScreenToBillingScreen(totalPrice: totalPrice,movieID: movieID, timeSlotID: cinemaDayTimeslot?.cinemaDayTimeslotID ?? -1, cinemaID: cinema?.cinemaID ?? -1, selectedSeats: selectedSeats, bookingDate: bookingDate)
         
     }
     @IBOutlet weak var collectionViewSeats: UICollectionView!
@@ -144,7 +144,9 @@ extension MovieSeatViewController: UICollectionViewDataSource,UICollectionViewDe
         selectedSeats.append(item)
         print(item.seatName ?? "")
         let cell = collectionViewSeats.cellForItem(at: indexPath) as? SeatsCollectionViewCell
-        cell?.seatText.text = "\(item.id ?? 0)"
+        let id = (item.id ?? 1) - 1
+        
+        cell?.seatText.text = "\(id)"
         cell?.seatText.textColor = .white
         cell?.seatView.backgroundColor = UIColor(named: "color_primary")
     }

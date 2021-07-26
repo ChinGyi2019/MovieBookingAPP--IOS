@@ -14,13 +14,14 @@ protocol PaymentModel {
     func fetchPaymentMethods(completion: @escaping (NetworkResult<PaymentMethodListResponse>) -> Void)
     
     func getProfile(completion: @escaping (NetworkResult<ProfileResponse>) -> Void)
+    func addNewCard(card: Card, completion: @escaping (NetworkResult<AddNewCardResponse>) -> Void)
+    
+    func checkOut(checkOut: CheckOutModel, completion: @escaping (NetworkResult<CheckOutResponse>) -> Void)
+    
+
 }
 
 class PaymentModelImpl: BaseModel, PaymentModel {
-   
-    
-  
-    
     
     static var shared = PaymentModelImpl()
     
@@ -37,6 +38,14 @@ class PaymentModelImpl: BaseModel, PaymentModel {
     
     func getProfile(completion: @escaping (NetworkResult<ProfileResponse>) -> Void) {
         networkingAgent.getProfile(completion: completion)
+    }
+    
+    func addNewCard(card: Card, completion: @escaping (NetworkResult<AddNewCardResponse>) -> Void) {
+        networkingAgent.addNewCard(card: card, completion: completion)
+    }
+    
+    func checkOut(checkOut: CheckOutModel, completion: @escaping (NetworkResult<CheckOutResponse>) -> Void) {
+        networkingAgent.checkOut(checkOut: checkOut, completion: completion)
     }
     
     
