@@ -26,7 +26,7 @@
 		CC2BF6B226A3367C0039DE48 /* MovieBookingEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2BF6B126A3367C0039DE48 /* MovieBookingEndpoint.swift */; };
 		CC2BFDA026A7F8270095A430 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = CC2BFD9F26A7F8270095A430 /* credentials.plist */; };
 		CC2BFDA226A7F90A0095A430 /* GoogleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2BFDA126A7F90A0095A430 /* GoogleAuth.swift */; };
-		CC2BFDA426A807EF0095A430 /* GoogleFacebookDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2BFDA326A807EF0095A430 /* GoogleFacebookDelegate.swift */; };
+		CC2BFDA426A807EF0095A430 /* GoogleFacebookRegisterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2BFDA326A807EF0095A430 /* GoogleFacebookRegisterDelegate.swift */; };
 		CC2D47E0266E6D1C0066EDB3 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2D47DF266E6D1C0066EDB3 /* Router.swift */; };
 		CC2D47F1266E7C230066EDB3 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2D47EF266E7C230066EDB3 /* MovieCollectionViewCell.swift */; };
 		CC2D47F2266E7C230066EDB3 /* MovieCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC2D47F0266E7C230066EDB3 /* MovieCollectionViewCell.xib */; };
@@ -65,6 +65,9 @@
 		CC4F43D326AC5822008DDFFA /* AddNewCardResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4F43D226AC5822008DDFFA /* AddNewCardResponse.swift */; };
 		CC4F43D526AC6333008DDFFA /* CheckOutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4F43D426AC6333008DDFFA /* CheckOutResponse.swift */; };
 		CC4F43D726AC6382008DDFFA /* CheckOutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4F43D626AC6382008DDFFA /* CheckOutModel.swift */; };
+		CC631AD226AEBEF10065B5E1 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC631AD126AEBEF10065B5E1 /* MovieModel.swift */; };
+		CC631AD426AEC0D10065B5E1 /* Globalnstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC631AD326AEC0D10065B5E1 /* Globalnstance.swift */; };
+		CC631AD726AEC61C0065B5E1 /* CheckOutError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC631AD626AEC61C0065B5E1 /* CheckOutError.swift */; };
 		CC649061267CDC5000A8F392 /* TabLoginCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC64905F267CDC5000A8F392 /* TabLoginCollectionViewCell.swift */; };
 		CC649062267CDC5000A8F392 /* TabLoginCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC649060267CDC5000A8F392 /* TabLoginCollectionViewCell.xib */; };
 		CC6D47F5269D73EB008F8DBF /* SnackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6D47F3269D73EB008F8DBF /* SnackCollectionViewCell.swift */; };
@@ -78,6 +81,7 @@
 		CC7C0012266FA9040031DA9F /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C0011266FA9040031DA9F /* PaymentMethodViewController.swift */; };
 		CC7C001A266FAEB00031DA9F /* VisaCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C0018266FAEB00031DA9F /* VisaCardCollectionViewCell.swift */; };
 		CC7C001B266FAEB00031DA9F /* VisaCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC7C0019266FAEB00031DA9F /* VisaCardCollectionViewCell.xib */; };
+		CC80976926B008B20085B005 /* FacebookAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC80976826B008B20085B005 /* FacebookAuth.swift */; };
 		CC8396BF2668ED5E004452E8 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8396BE2668ED5E004452E8 /* DateViewController.swift */; };
 		CC8396C72668EE05004452E8 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8396C52668EE05004452E8 /* DateCollectionViewCell.swift */; };
 		CC8396C82668EE05004452E8 /* DateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC8396C62668EE05004452E8 /* DateCollectionViewCell.xib */; };
@@ -121,7 +125,7 @@
 		CC2BF6B126A3367C0039DE48 /* MovieBookingEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieBookingEndpoint.swift; sourceTree = "<group>"; };
 		CC2BFD9F26A7F8270095A430 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		CC2BFDA126A7F90A0095A430 /* GoogleAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuth.swift; sourceTree = "<group>"; };
-		CC2BFDA326A807EF0095A430 /* GoogleFacebookDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleFacebookDelegate.swift; sourceTree = "<group>"; };
+		CC2BFDA326A807EF0095A430 /* GoogleFacebookRegisterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleFacebookRegisterDelegate.swift; sourceTree = "<group>"; };
 		CC2D47DF266E6D1C0066EDB3 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		CC2D47EF266E7C230066EDB3 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC2D47F0266E7C230066EDB3 /* MovieCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -162,6 +166,9 @@
 		CC4F43D226AC5822008DDFFA /* AddNewCardResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCardResponse.swift; sourceTree = "<group>"; };
 		CC4F43D426AC6333008DDFFA /* CheckOutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutResponse.swift; sourceTree = "<group>"; };
 		CC4F43D626AC6382008DDFFA /* CheckOutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutModel.swift; sourceTree = "<group>"; };
+		CC631AD126AEBEF10065B5E1 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
+		CC631AD326AEC0D10065B5E1 /* Globalnstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globalnstance.swift; sourceTree = "<group>"; };
+		CC631AD626AEC61C0065B5E1 /* CheckOutError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutError.swift; sourceTree = "<group>"; };
 		CC64905F267CDC5000A8F392 /* TabLoginCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabLoginCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC649060267CDC5000A8F392 /* TabLoginCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabLoginCollectionViewCell.xib; sourceTree = "<group>"; };
 		CC6D47F3269D73EB008F8DBF /* SnackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -175,6 +182,7 @@
 		CC7C0011266FA9040031DA9F /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
 		CC7C0018266FAEB00031DA9F /* VisaCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisaCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC7C0019266FAEB00031DA9F /* VisaCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VisaCardCollectionViewCell.xib; sourceTree = "<group>"; };
+		CC80976826B008B20085B005 /* FacebookAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookAuth.swift; sourceTree = "<group>"; };
 		CC8396BE2668ED5E004452E8 /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		CC8396C52668EE05004452E8 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC8396C62668EE05004452E8 /* DateCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -249,6 +257,7 @@
 		CC2BF6AE26A3358D0039DE48 /* response */ = {
 			isa = PBXGroup;
 			children = (
+				CC631AD526AEC60A0065B5E1 /* error */,
 				CC2BF6AF26A335A30039DE48 /* RegisterResponse.swift */,
 				CC3D73AE26A58410000933DF /* LogOutResponse.swift */,
 				CC420CA226A5B8A000E26C5F /* ProfileResponse.swift */,
@@ -268,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				CC34D9EF266B82B500AF6E59 /* AppConstants.swift */,
+				CC631AD326AEC0D10065B5E1 /* Globalnstance.swift */,
 			);
 			path = constant;
 			sourceTree = "<group>";
@@ -440,8 +450,17 @@
 				CC3D73AB26A54E84000933DF /* UserDefaultHelper.swift */,
 				CC27C7EA26A6B2C800C9B300 /* DateExtension.swift */,
 				CC2BFDA126A7F90A0095A430 /* GoogleAuth.swift */,
+				CC80976826B008B20085B005 /* FacebookAuth.swift */,
 			);
 			path = util;
+			sourceTree = "<group>";
+		};
+		CC631AD526AEC60A0065B5E1 /* error */ = {
+			isa = PBXGroup;
+			children = (
+				CC631AD626AEC61C0065B5E1 /* CheckOutError.swift */,
+			);
+			path = error;
 			sourceTree = "<group>";
 		};
 		CC6D47F7269D7A29008F8DBF /* paymentmethod */ = {
@@ -460,7 +479,7 @@
 				CC37F7EE267CE222004A512A /* LoginTabIndicatorDelegate.swift */,
 				CC8B3F7F2689D08000C87505 /* LoginDelegate.swift */,
 				CC4050AE26A7117C0008593E /* TimeSlotDelegate.swift */,
-				CC2BFDA326A807EF0095A430 /* GoogleFacebookDelegate.swift */,
+				CC2BFDA326A807EF0095A430 /* GoogleFacebookRegisterDelegate.swift */,
 				CC459B1826AB0FEC00975AC2 /* SnackPlusMinusDelegate.swift */,
 			);
 			path = protocol;
@@ -611,6 +630,7 @@
 			children = (
 				CC3D7B4B26AADB98007697FC /* PaymentModel.swift */,
 				CC3D7B4D26AADBAE007697FC /* BaseModel.swift */,
+				CC631AD126AEBEF10065B5E1 /* MovieModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -773,6 +793,7 @@
 				CC27C7EB26A6B2C800C9B300 /* DateExtension.swift in Sources */,
 				CC2BF6B226A3367C0039DE48 /* MovieBookingEndpoint.swift in Sources */,
 				CC6FD72E266F50F2001CA5B1 /* MovieItemDelegate.swift in Sources */,
+				CC80976926B008B20085B005 /* FacebookAuth.swift in Sources */,
 				CC3D7B4E26AADBAE007697FC /* BaseModel.swift in Sources */,
 				CC8396CE2668EFCA004452E8 /* TimeCollectionViewCell.swift in Sources */,
 				CC46393426ABF9B5006F22BB /* AvailableInCollectionViewCell.swift in Sources */,
@@ -794,9 +815,11 @@
 				CC4F43D526AC6333008DDFFA /* CheckOutResponse.swift in Sources */,
 				CC2BF6AD26A334140039DE48 /* User.swift in Sources */,
 				CC3D7B4826AADAD6007697FC /* PaymentMethodListResponse.swift in Sources */,
+				CC631AD726AEC61C0065B5E1 /* CheckOutError.swift in Sources */,
 				CCEE8F7F26A01AF900BEC1CF /* MovieNetworkingProtocol.swift in Sources */,
 				CC37F7EF267CE222004A512A /* LoginTabIndicatorDelegate.swift in Sources */,
 				CC27C7EE26A6BD9C00C9B300 /* DayViewController+DateExtension.swift in Sources */,
+				CC631AD426AEC0D10065B5E1 /* Globalnstance.swift in Sources */,
 				CC9C6E76266B881800E1D0CE /* SeatsVOSDummy.swift in Sources */,
 				CC27C7F526A6D34D00C9B300 /* CinemaCollectionViewCell.swift in Sources */,
 				CC7BF6F526A00FC20093FDEB /* NavigationDrawerViewController.swift in Sources */,
@@ -806,6 +829,7 @@
 				CC420CA926A5CD4B00E26C5F /* MovieType.swift in Sources */,
 				CC420CAB26A5D28000E26C5F /* MovieDetailsResponse.swift in Sources */,
 				CC18116E266FDDF30045AD52 /* EraseCornerView.swift in Sources */,
+				CC631AD226AEBEF10065B5E1 /* MovieModel.swift in Sources */,
 				CCF52F67266FD4BA00C781C5 /* GettingTicketViewController.swift in Sources */,
 				CC088E24266E092000E16FF8 /* AuthenticationViewController.swift in Sources */,
 				CC2BFDA226A7F90A0095A430 /* GoogleAuth.swift in Sources */,
@@ -817,7 +841,7 @@
 				CC49B41426A97C3E00976156 /* CinemaSeatingPlanResponse.swift in Sources */,
 				CC3D73AF26A58411000933DF /* LogOutResponse.swift in Sources */,
 				CC1E535A26720009008B75A1 /* BookLayout.swift in Sources */,
-				CC2BFDA426A807EF0095A430 /* GoogleFacebookDelegate.swift in Sources */,
+				CC2BFDA426A807EF0095A430 /* GoogleFacebookRegisterDelegate.swift in Sources */,
 				CC459B1926AB0FEC00975AC2 /* SnackPlusMinusDelegate.swift in Sources */,
 				CCEE8F8226A01B2500BEC1CF /* AFNetworkingAgent.swift in Sources */,
 				CCEE8F8526A01D7800BEC1CF /* NetworkResult.swift in Sources */,

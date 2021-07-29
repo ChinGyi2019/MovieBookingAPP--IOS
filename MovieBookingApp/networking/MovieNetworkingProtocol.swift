@@ -17,6 +17,10 @@ protocol MovieNetworkingProtocol {
     
     func loginWithEmail(user: User, completion: @escaping (NetworkResult<RegisterResponse>) -> Void)
     
+    func loginWithGoogle(_ googleToken: String, completion: @escaping (NetworkResult<RegisterResponse>) -> Void)
+    
+    func loginWithFacebook(_ facebookToken: String, completion: @escaping (NetworkResult<RegisterResponse>) -> Void)
+    
     func logOut(completion: @escaping (NetworkResult<LogOutResponse>) -> Void)
     
     func getProfile(completion: @escaping (NetworkResult<ProfileResponse>) -> Void)

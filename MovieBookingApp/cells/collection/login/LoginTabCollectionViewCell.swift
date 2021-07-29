@@ -10,6 +10,7 @@ import MMText
 
 
 class LoginTabCollectionViewCell: UICollectionViewCell {
+    //MARK:- IBOutlet
     @IBOutlet var textFieldEmail: MMTextField!
      @IBOutlet var textFieldPassword: MMTextField!
     @IBOutlet var indicatorView: UIActivityIndicatorView!
@@ -29,6 +30,7 @@ class LoginTabCollectionViewCell: UICollectionViewCell {
         }
     }
     var delegate : LoginDelegate? = nil
+    var googleFacebookLoginDelegate : GoogleFacebookLoginDelegate?  = nil
     
     private var netwrokingAgent = AFNetworkingAgent.shared
     private var userDefault = UserDefaultHelper.shared
@@ -71,20 +73,25 @@ class LoginTabCollectionViewCell: UICollectionViewCell {
         let gestureForGoogle = UITapGestureRecognizer(target: self, action: #selector(didTapGoogleLoginBtn))
         stackViewGoogleBtn.isUserInteractionEnabled = true
         stackViewGoogleBtn.addGestureRecognizer(gestureForGoogle)
+        
+        let gestureForFacebook = UITapGestureRecognizer(target: self, action: #selector(didTapFacebookLoginBtn))
+        stackViewFacebookBtn.isUserInteractionEnabled = true
+        stackViewFacebookBtn.addGestureRecognizer(gestureForFacebook)
+    }
+    
+    @objc func didTapFacebookLoginBtn(){
+        googleFacebookLoginDelegate?.didTapLoginFacebookBtn()
     }
     
     @objc func didTapGoogleLoginBtn(){
-        let googleToken = userDefault.getGoogleAccessToken()
-        if  googleToken != "" && !googleToken.isEmpty{
-            loginWithGoogle(googleToken: googleToken)
-        }else{
-            delegate?.loginShowError(message: "You dont have Sign in yet!")
-        }
+        googleFacebookLoginDelegate?.didTapLoginGoogleBtn()
     }
+    
+    
     
     fileprivate func didTapLoginBtn(){
         checkTextFieldsisEmpty{
-            login()
+            loginWithEmail()
         }
         
     }
@@ -100,7 +107,7 @@ class LoginTabCollectionViewCell: UICollectionViewCell {
         }else{
             indicatorView.isHidden = false
             indicatorView.startAnimating()
-    
+            //DoLoginProcess
             doLogin()
             
             
@@ -113,24 +120,20 @@ class LoginTabCollectionViewCell: UICollectionViewCell {
         self.indicatorView.stopAnimating()
     }
     
-    fileprivate func login(){
+    fileprivate func loginWithEmail(){
        
         let email = textFieldEmail.text
         let password = textFieldPassword.text
         let user =  User(name: "", email: email, phone: "", password: password, googleAccessToken: "", facebookAccessToken: "")
         netwrokingAgent.loginWithEmail(user: user) { [weak self] result in
             guard let self = self else {return}
-            self.loginProcess(result)
+            self.doLoginProcess(result)
             
         }
     }
-    fileprivate func loginWithGoogle(googleToken : String){
-        netwrokingAgent.loginWithGoogle(googleToken) { result in
-            self.loginProcess(result)
-        }
-    }
     
-    fileprivate func loginProcess(_ result : NetworkResult<RegisterResponse>){
+    
+    fileprivate func doLoginProcess(_ result : NetworkResult<RegisterResponse>){
         
         switch result{
         case .success(let data):

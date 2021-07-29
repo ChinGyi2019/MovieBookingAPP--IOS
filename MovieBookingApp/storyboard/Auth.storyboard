@@ -200,10 +200,20 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="j5x-Gg-bHX">
+                                        <rect key="frame" x="184" y="400" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="18t-mq-dhV"/>
+                                            <constraint firstAttribute="width" constant="60" id="z0l-rZ-fuO"/>
+                                        </constraints>
+                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="3If-yZ-wmc" secondAttribute="trailing" id="3oc-LP-IQ1"/>
+                                    <constraint firstItem="j5x-Gg-bHX" firstAttribute="centerY" secondItem="mdz-XO-Jd0" secondAttribute="centerY" id="Aup-f4-lXZ"/>
+                                    <constraint firstItem="j5x-Gg-bHX" firstAttribute="centerX" secondItem="mdz-XO-Jd0" secondAttribute="centerX" id="GVl-xt-wlo"/>
                                     <constraint firstItem="3If-yZ-wmc" firstAttribute="leading" secondItem="mdz-XO-Jd0" secondAttribute="leading" id="Kbb-jk-Qgh"/>
                                     <constraint firstItem="3If-yZ-wmc" firstAttribute="top" secondItem="mdz-XO-Jd0" secondAttribute="top" id="nZc-XL-rGz"/>
                                 </constraints>
@@ -224,6 +234,7 @@
                         <outlet property="collectionContainerViewHeight" destination="nao-UU-7Ta" id="wDs-85-aMD"/>
                         <outlet property="collectionTabUIView" destination="U5q-o9-dx6" id="8kU-yD-z7L"/>
                         <outlet property="collectionTabUIViewHeight" destination="0iv-ZP-amf" id="MOH-6b-tOn"/>
+                        <outlet property="indicatorView" destination="j5x-Gg-bHX" id="Kok-Pj-MIf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZOL-dA-OF3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

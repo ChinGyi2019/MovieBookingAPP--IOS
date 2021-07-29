@@ -11,9 +11,8 @@ import Alamofire
 class AFNetworkingAgent: MovieNetworkingProtocol {
    
     
+   
 
-    
-    
     
     static var shared = AFNetworkingAgent()
    
@@ -21,17 +20,17 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
    
     private var headers: HTTPHeaders {
         get{
-            return [.authorization(bearerToken: UserDefaultHelper.shared.getToken()),
-                    .contentType("application/json"),
-                    .accept("application/json")]
+            return [.authorization(bearerToken: UserDefaultHelper.shared.getToken())
+                    ]
         }
     }
-    
+//    .contentType("application/json"),
+//    .accept("application/json")
     
     //MARK:- Authenticaiton
     func register(user: User, completion: @escaping (NetworkResult<RegisterResponse>) -> Void) {
         
-        let _ = [
+        let userDict = [
             "name" : user.name,
             "email" : user.email,
             "phone" : user.phone,
@@ -40,9 +39,12 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             "facebook-access-token": user.facebookAccessToken
         ]
         
+        let header : HTTPHeaders = [.accept("application/json")]
+        
         AF.request("https://tmba.padc.com.mm/api/v1/register",
                    method: .post,
-                   parameters: user)
+                   parameters: userDict,
+                   headers: header)
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: RegisterResponse.self)
             { response in
@@ -65,10 +67,13 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             "email" : user.email,
             "password" : user.password
         ]
+        let header : HTTPHeaders = [.accept("application/json")]
         
         AF.request(MovieBookingEndPoint.login,
                    method: .post,
-                   parameters: userDict)
+                   parameters: userDict,
+                   headers: header
+                   )
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: RegisterResponse.self)
             { response in
@@ -91,10 +96,39 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
         let access_token = [
             "access-token" : googleToken
         ]
+        let header : HTTPHeaders = [.accept("application/json")]
         
         AF.request(MovieBookingEndPoint.loginWithGoogle,
                    method: .post,
-                   parameters: access_token)
+                   parameters: access_token,
+                   headers: header)
+            .validate(statusCode: 200 ..< 300)
+            .responseDecodable(of: RegisterResponse.self)
+            { response in
+            switch response.result{
+            
+            case .success(let data):
+                completion(.success(data))
+            
+            case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                
+                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                
+            }
+            
+        }
+    }
+    
+    func loginWithFacebook(_ facebookToken: String, completion: @escaping (NetworkResult<RegisterResponse>) -> Void) {
+        let access_token = [
+            "access-token" : facebookToken
+        ]
+        let header : HTTPHeaders = [.accept("application/json")]
+        
+        AF.request(MovieBookingEndPoint.loginWithFacebook,
+                   method: .post,
+                   parameters: access_token,
+                   headers: header)
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: RegisterResponse.self)
             { response in
@@ -279,6 +313,8 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
     }
     
     func addNewCard(card: Card, completion: @escaping (NetworkResult<AddNewCardResponse>) -> Void) {
+        
+        
         AF.request(MovieBookingEndPoint.addNewCard,
                    method: .post, parameters: card,headers: headers)
             .validate(statusCode: 200 ..< 300)
@@ -300,6 +336,26 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
     
     func checkOut(checkOut: CheckOutModel, completion: @escaping (NetworkResult<CheckOutResponse>) -> Void) {
         
+        //header ,
+        let headers : HTTPHeaders = [.authorization(bearerToken: UserDefaultHelper.shared.getToken()),
+                                     .accept("application/json")]
+        
+        //Url Request
+        let url = URL(string: AppConstants.BASE_URL.appending("/api/v1/checkout"))
+        var request = URLRequest(url: url!)
+      
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.headers = headers
+        
+        //Convert snacks to snackDict
+        var snacksDict = [[String : Int]]()
+        checkOut.snacks?.forEach({ snack in
+            let signleSnack = ["id" : snack.id ?? 0,
+                               "quantity" : snack.quantity]
+            snacksDict.append(signleSnack)
+        })
+        //Body Raw Data
         let bodyData : [String :Any] = [
             "cinema_day_timeslot_id" : checkOut.cinemaDayTimeslotID ?? -1,
             "row" : checkOut.row ?? "",
@@ -309,18 +365,18 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             "movie_id" : checkOut.movieID ?? -1,
             "card_id" : checkOut.cardID ?? -1,
             "cinema_id" : checkOut.cinemaID ?? -1,
-            "snacks" : checkOut.snacks ?? [CheckOutSnack](),
+            "snacks" : snacksDict
             
     
         ]
-    
-
-        
-        
-        AF.request(MovieBookingEndPoint.checkOut,
-                   method: .post,
-                   parameters: bodyData,
-                   headers: headers)
+        //Do BodyDict to Json Serialization
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: bodyData)
+        }catch{
+            print("error json serialization")
+        }
+        //Send to Server
+        AF.request(request)
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: CheckOutResponse.self)
             { response in
@@ -329,7 +385,7 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             case .success(let data):
                 completion(.success(data))
             
-            case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+            case .failure(let error): completion(.error(handleError(response, error, CheckOutErrorModel.self)))
                 
                 debugPrint("Underling error \(String(describing: error.underlyingError))")
                 
@@ -429,7 +485,12 @@ enum CodingKeys: String,CodingKey  {
 // MARK: - LoginCommonError
 struct LoginCommonError: Codable, MDBErrorModel {
     var message: String{
-        return statusMessage
+        if ((errors.phone?.isEmpty) == nil){
+            return "\(errors.email?.first ?? "")"
+        }else{
+            return "\(errors.email?.first ?? "") & \(errors.phone?.first ?? "")"
+        }
+        
     }
     let statusMessage: String
     let errors: Errors
@@ -444,8 +505,10 @@ struct LoginCommonError: Codable, MDBErrorModel {
 // MARK: - Errors
 struct Errors: Codable {
     let email: [String]?
+    let phone: [String]?
     enum CodingKeys: String,CodingKey  {
         case email = "email"
+        case phone = "phone"
 
     }
     

@@ -96,7 +96,7 @@ func showToast(message : String, font: UIFont) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         
         // add an action (button)
-        alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertAction.Style.default, handler: nil))
         
         // show the alert
         self.present(alert, animated: true, completion: nil)

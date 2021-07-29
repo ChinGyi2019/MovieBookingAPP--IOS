@@ -14,7 +14,7 @@ class BillingScreenViewController: UIViewController {
     
     @IBAction func ditTapPayBtn(_ sender: Any) {
         
-        navigateFromBillingScreenToPaymentMethodScreen(totalPrice: totalPrice + snackTotalPrice, movieID: movieID, timeSlotID: timeSlotID, cinemaID: cinemaID, selectedSeats: selectedSeats, selectedSnacks: snacks, bookingDate: bookingDate)
+        navigateFromBillingScreenToPaymentMethodScreen(totalPrice: (totalPrice + snackTotalPrice), movieID: movieID, timeSlot: cinemaDayTimeslot ?? Timeslot(), cinema: cinema ?? Cinema(), selectedSeats: selectedSeats, selectedSnacks: snacks, bookingDate: bookingDate)
     }
   
     
@@ -40,6 +40,8 @@ class BillingScreenViewController: UIViewController {
     var movieID : Int = -1
     var cinemaID: Int = -1
     var timeSlotID: Int = -1
+    var cinemaDayTimeslot : Timeslot? = nil
+    var cinema : Cinema? = nil
     var selectedSeats = [MovieSeatVO]()
     var bookingDate : Date? = nil
     

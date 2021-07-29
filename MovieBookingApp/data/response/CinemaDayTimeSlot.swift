@@ -24,10 +24,10 @@ struct CinemaDayTimeSlotResponse: Codable {
 }
 
 // MARK: - Cinema
-struct Cinema: Codable {
-    let cinemaID: Int?
-    let cinema: String?
-    let timeslots: [Timeslot]?
+class Cinema: Codable {
+    var cinemaID: Int?
+    var cinema: String?
+    var timeslots: [Timeslot]?
     
     init() {
         self.cinemaID = 0
@@ -49,17 +49,20 @@ struct Cinema: Codable {
 }
 
 // MARK: - Timeslot
-struct Timeslot: Codable {
-    let cinemaDayTimeslotID: Int?
-    let startTime: String?
+class Timeslot: Codable {
+    var cinemaDayTimeslotID: Int?
+    var startTime: String?
+    var isSelected : Bool = false
     init() {
         self.cinemaDayTimeslotID = 0
         self.startTime = ""
+        self.isSelected = false
     }
     
-    init(cinemaDayTimeslotID: Int?, startTime : String) {
+    init(cinemaDayTimeslotID: Int?, startTime : String, isSelected : Bool) {
         self.cinemaDayTimeslotID = cinemaDayTimeslotID
         self.startTime = startTime
+        self.isSelected = isSelected
     }
 
     enum CodingKeys: String, CodingKey {

@@ -16,6 +16,7 @@ enum MovieBookingEndPoint : URLConvertible{
     case register
     case login
     case loginWithGoogle
+    case loginWithFacebook
     case logout
     case profile
     case movies(_ take : Int, _ status : String)
@@ -62,7 +63,8 @@ enum MovieBookingEndPoint : URLConvertible{
             
         case .loginWithGoogle:
             return "/api/v1/google-login"
-        
+        case .loginWithFacebook:
+            return "/api/v1/facebook-login"
             
         case .logout:
             return "/api/v1/logout"

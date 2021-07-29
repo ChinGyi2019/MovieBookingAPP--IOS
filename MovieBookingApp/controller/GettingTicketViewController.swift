@@ -7,41 +7,57 @@
 
 import UIKit
 import Foundation
+import SDWebImage
 
 
 class GettingTicketViewController: UIViewController {
-
-    @IBAction func ditTapCancelBtn(_ sender: Any) {
-    }
-    @IBOutlet weak var stackViewTicket: UIStackView!
     
+    //MARK:- IBOutlet
+    //GenrealView
+    @IBOutlet weak var stackViewTicket: UIStackView!
     @IBOutlet weak var ticketUIView: EraseCornerView!
     @IBOutlet weak var stackViewTicketInfo: UIStackView!
-    
     @IBOutlet weak var ticketInfoUIView: EraseCornerView!
-    
     @IBOutlet weak var barcodeUIView: EraseCornerView!
     @IBOutlet var ivTcket: UIImageView!
-   
     @IBOutlet weak var stackViewBarCode: UIStackView!
-    
     @IBOutlet var dashUIView: UIView!
-
+    //MovieTicket
+    @IBOutlet weak var lblMovieTitle: UILabel!
+    @IBOutlet weak var lblDuration: UILabel!
+    @IBOutlet weak var lblBookingNo: UILabel!
+    @IBOutlet weak var lblShowTime : UILabel!
+    @IBOutlet weak var lblTheater: UILabel!
+    @IBOutlet weak var lblScreen: UILabel!
+    @IBOutlet weak var lblRow: UILabel!
+    @IBOutlet weak var lblSeat: UILabel!
+    @IBOutlet weak var lblTotalPrice: UILabel!
+    @IBOutlet weak var ivMovieTicketDropBack: UIImageView!
     
+    //MARK:- Properties
     var movieID : Int = -1
-    var cinemaID: Int = -1
-    var timeSlotID: Int = -1
-    var selectedSeats = [MovieSeatVO]()
+    let golbalInstance =  Globalnstance.shared
+    var checkOutData : CheckOutResponse? = nil
+    var cinema : Cinema? = nil
     var bookingDate : Date? = nil
-    var selectedSnacks = [Snack]()
-    var totalPrice : Double = 0.0
-    var selectedCardId : Int = -1
+//    var moiveName : String = ""
+//    var movieDuration : String = ""
+   
+//    var cinemaDayTimeslot : Timeslot? = nil
+   
+//    var selectedSeats = [MovieSeatVO]()
+  
+//    var selectedSnacks = [Snack]()
+//    var totalPrice : Double = 0.0
+//    var selectedCardId : Int = -1
     
     private let paymentModel : PaymentModel = PaymentModelImpl.shared
-    
+    private let movieModel : MovieModel = MovieModelImpl.shared
+   
     
     @IBOutlet var dashUIViewInTicketInofView: UIView!
-   
+    
+    //MARK:- ViewLife Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,14 +65,19 @@ class GettingTicketViewController: UIViewController {
         
     }
     
+    //MARK:- Init View
     fileprivate func initView(){
         navigationItem.title = "Get Your Tickets"
+        self.navigationItem.setHidesBackButton(true, animated:true)
         let doneBarButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapDoneButton))
-
+        
         navigationItem.rightBarButtonItem = doneBarButton
         setUpStackViewRound()
         
-        getCheckOut()
+        //Bind Tickets
+        bindTicketsView(checkOutData)
+        //Movie Details
+        getMovieDetails(movieID: movieID)
     }
     
     @objc func didTapDoneButton(){
@@ -65,15 +86,14 @@ class GettingTicketViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        //Adding Cire to View
         ticketUIView.circleY = ticketUIView.frame.height * 0.88
         ticketInfoUIView.circleY = ticketInfoUIView.frame.height * 0.85
-       // barcodeUIView.circleY = barcodeUIView.frame.height
-
-        
+        self.view.layoutIfNeeded()
     }
     
-     func setUpStackViewRound(){
-       
+    func setUpStackViewRound(){
+        
         //ImageView ticket
         ivTcket.layer.cornerRadius = 16
         ivTcket.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -89,7 +109,7 @@ class GettingTicketViewController: UIViewController {
         ticketInfoUIView.circleRadius = 16.0
         ticketUIView.layer.cornerRadius = 16
         ticketInfoUIView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-
+        
         //BarCodeUiView
         barcodeUIView.layer.masksToBounds = true
         barcodeUIView.layer.cornerRadius = 16
@@ -99,51 +119,45 @@ class GettingTicketViewController: UIViewController {
         //DashUIView
         dashUIView.addDashedBorder()
         dashUIViewInTicketInofView.addDashedBorder()
-
-    }
-    fileprivate func getCheckOut(){
-        var row = ""
-        var seatNumber = ""
-        
-        selectedSeats.forEach { seat in
-            row += "\(seat.symbol ?? ""),"
-            seatNumber += "\(seat.seatName ?? ""),"
-        }
-        if !row.isEmpty{
-            row.removeLast()
-        }
-        if !seatNumber.isEmpty{
-            seatNumber.removeLast()
-        }
-        print(selectedCardId)
-        let selectedCheckOutSnack  = selectedSnacks.map{$0.toCheckOutSnack()}
-        print(selectedCheckOutSnack.count)
-        let checkOutData = CheckOutModel(cinemaDayTimeslotID: timeSlotID, row: row, seatNumber: seatNumber, bookingDate: bookingDate?.formattedDate, movieID: movieID, cardID: selectedCardId, cinemaID: cinemaID, totalPrice: totalPrice, snacks: selectedCheckOutSnack )
-        
-        checkOutTicket(checkOutData)
         
     }
     
+    fileprivate func bindTicketsView(_ ticket : CheckOutResponse?){
+       
+        lblBookingNo.text = ticket?.data?.bookingNo
+        lblShowTime.text = bookingDate?.formattedMonthDate
+        lblTheater.text = cinema?.cinema
+        lblRow.text = ticket?.data?.row
+        lblSeat.text = ticket?.data?.seat
+        lblTotalPrice.text = ticket?.data?.total
+        
+    }
     
-    fileprivate func checkOutTicket(_ checkOut : CheckOutModel){
-        
-        
-        
-        paymentModel.checkOut(checkOut: checkOut) { result in
+    fileprivate func getMovieDetails(movieID : Int){
+        movieModel.fetchMovieDetails(movieId: movieID) { result in
             switch result {
             case .success(let data):
-                self.bindTicketsView(data)
+                self.bindMovieData(data)
             case .error(let error):
                 print(error)
             }
         }
-        
     }
-    fileprivate func bindTicketsView(_ ticket : CheckOutResponse){
+    
+    fileprivate func bindMovieData(_ data : MovieDetailsResponse){
         
-        print(ticket)
+        let backDropPath = "\(AppConstants.BASE_ORIGINAL_IMG_URL)/\(data.data?.posterPath ?? "")"
+        
+        ivMovieTicketDropBack.sd_setImage(with: URL(string: backDropPath))
+        ivMovieTicketDropBack.contentMode = .scaleToFill
+        lblMovieTitle.text = data.data?.originalTitle
+        let runTime = data.data?.runtime ?? 0
+        let runHour : Int = runTime / 60
+        let runMinute : Int = runTime % 60
+        lblDuration.text = "\(runHour)h \(runMinute)m - \(golbalInstance.filmType)"
+        
         
     }
     
-
+    
 }

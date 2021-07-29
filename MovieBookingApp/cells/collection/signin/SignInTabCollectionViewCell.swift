@@ -18,7 +18,7 @@ class SignInTabCollectionViewCell: UICollectionViewCell {
     @IBOutlet var stackViewGoogleBtn: UIStackView!
     
     var delegate : SignDelegate? = nil
-    var googleFacebookDelegate : GoogleFacebookDelegate? = nil
+    var googleFacebookDelegate : GoogleFacebookRegisterDelegate? = nil
     
     private var networkAgent = AFNetworkingAgent.shared
     private var userDefaultHelper = UserDefaultHelper.shared
@@ -43,6 +43,7 @@ class SignInTabCollectionViewCell: UICollectionViewCell {
         initView()
     }
     
+    //MARK:- View Init
     private func initView(){
         indicatorView.isHidden = true
         indicatorView.hidesWhenStopped = true
@@ -77,7 +78,6 @@ class SignInTabCollectionViewCell: UICollectionViewCell {
     }
     
     fileprivate func setUpRoundCorners(){
-       
         //Round and Add Borders
         stackViewFacebookBtn.addBorderLine(radius: 8, width: 1, color: UIColor.gray.cgColor)
         stackViewGoogleBtn.addBorderLine(radius: 8, width: 1, color: UIColor.gray.cgColor)
@@ -118,22 +118,36 @@ class SignInTabCollectionViewCell: UICollectionViewCell {
         
     }
     
+    //MARK:- Gesture for Facebook & Google
     private func gestureInit(){
         let gestureForGoogleBtn = UITapGestureRecognizer(target: self, action: #selector(onTapGoogleBtn))
         stackViewGoogleBtn.isUserInteractionEnabled = true
         stackViewGoogleBtn.addGestureRecognizer(gestureForGoogleBtn)
+        
+        let gestureForFacebookBtn = UITapGestureRecognizer(target: self, action: #selector(onTapFacebookBtn))
+        stackViewFacebookBtn.isUserInteractionEnabled = true
+        stackViewFacebookBtn.addGestureRecognizer(gestureForFacebookBtn)
     }
+    
     @objc func onTapGoogleBtn(){
-        googleFacebookDelegate?.didTapGoogleBtn()
+        googleFacebookDelegate?.didTapRegisterGoogleBtn()
 
     }
     
+    @objc func onTapFacebookBtn(){
+        googleFacebookDelegate?.didTapRegisterFacebookBtn()
+
+    }
+    
+    //MARK:- Register
     fileprivate func register(){
         let name = textUserName.text
         let email = textFieldEmail.text
         let phone = textFieldPhone.text
         let password = textFieldPassword.text
-        let user =  User(name: name, email: email, phone: phone, password: password, googleAccessToken: user?.googleAccessToken ?? "", facebookAccessToken: "")
+        let user =  User(name: name, email: email, phone: phone, password: password, googleAccessToken: user?.googleAccessToken ?? "", facebookAccessToken: user?.facebookAccessToken ?? "")
+        
+        print(user.googleAccessToken ?? "")
         networkAgent.register(user: user) { [weak self] result in
             guard let self = self else {return}
             switch result{

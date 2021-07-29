@@ -21,7 +21,15 @@ class MovieSeatViewController: UIViewController {
     @IBOutlet weak var buyTicketBtn : UIButton!
     @IBAction func didTapBuyTicketBtn(_ sender: Any) {
         
-        navigateFormSeatsChoosingScreenToBillingScreen(totalPrice: totalPrice,movieID: movieID, timeSlotID: cinemaDayTimeslot?.cinemaDayTimeslotID ?? -1, cinemaID: cinema?.cinemaID ?? -1, selectedSeats: selectedSeats, bookingDate: bookingDate)
+        if selectedSeats.isEmpty{
+            showAlert(title: "Hello !", message: "Please Select Seats!")
+          
+        }else{
+        
+            navigateFormSeatsChoosingScreenToBillingScreen(totalPrice: totalPrice, movieID: movieID, timeSlot: cinemaDayTimeslot ?? Timeslot(), cinema: cinema ?? Cinema(), selectedSeats: selectedSeats, bookingDate: bookingDate)
+        }
+        
+       
         
     }
     @IBOutlet weak var collectionViewSeats: UICollectionView!
@@ -38,6 +46,7 @@ class MovieSeatViewController: UIViewController {
     
     var selectedSeats = [MovieSeatVO]() {
         didSet{
+           
             bindSeatAndTicketsData()
             
         }

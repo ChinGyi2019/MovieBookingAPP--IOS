@@ -26,8 +26,7 @@ public override init() {
             guard error == nil else {return}
             guard let user = user else { return }
             
-            
-
+    
            //Success
             success(user.ToGoogleAuthProfileResponse())
             
@@ -46,7 +45,7 @@ public override init() {
         }
     }
     
-
+// I dont use it
     public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             if (error as NSError).code == GIDSignInError.hasNoAuthInKeychain.rawValue {
@@ -77,7 +76,7 @@ public struct GoogleAuthProfileResponse {
     public let id, token, fullname, giveName, familyName, email : String
     
     func  toUserModel() -> User {
-        return User(name: fullname, email: email, phone: "", password: "", googleAccessToken: token, facebookAccessToken: "")
+        return User(name: fullname, email: email, phone: "", password: "", googleAccessToken: id, facebookAccessToken: "")
     }
     
 }
@@ -88,7 +87,7 @@ extension GIDGoogleUser{
     let userId = self.userID ?? ""
     // For client-side use only!
 
-    let token = self.authentication.accessToken // i chnage  uthentication.idToken to authentication.accessToken
+    let token = self.authentication.idToken ?? "" // i chnage  uthentication.idToken to authentication.accessToken
     let fullName = self.profile?.name ?? ""
     let givenName = self.profile?.givenName ?? ""
     let familyName = self.profile?.familyName ?? ""

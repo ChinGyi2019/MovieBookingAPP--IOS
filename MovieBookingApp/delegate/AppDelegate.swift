@@ -7,6 +7,8 @@
 
 import UIKit
 import GoogleSignIn
+import FBSDKCoreKit
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -14,6 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        //Facebook
+        ApplicationDelegate.shared.application(
+                    application,
+                    didFinishLaunchingWithOptions: launchOptions
+                )
+        FBSDKCoreKit.ApplicationDelegate.shared.application(
+                application,
+                didFinishLaunchingWithOptions: launchOptions
+            )
+        
         return true
     }
 
@@ -38,15 +50,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           if handled {
             return true
           }
-
+        //Facebook
+        ApplicationDelegate.shared.application(
+                    app,
+                    open: url,
+                    sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+                    annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+                )
           // Handle other custom URL types.
 
           // If not handled by this app, return false.
           return false
     }
-//    func applicationDidFinishLaunching(_ application: UIApplication) {
-//        <#code#>
-//    }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else {
+            return
+        }
+        //Facebook
+        ApplicationDelegate.shared.application(
+            UIApplication.shared,
+            open: url,
+            sourceApplication: nil,
+            annotation: [UIApplication.OpenURLOptionsKey.annotation]
+        )
+    }
+
 
 
 }

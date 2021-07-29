@@ -9,19 +9,20 @@ import UIKit
 import MMText
 import Foundation
 
-class AuthenticationViewController : UIViewController, LoginDelegate, SignDelegate, GoogleFacebookDelegate{
-   
+class AuthenticationViewController : UIViewController, LoginDelegate, SignDelegate, GoogleFacebookRegisterDelegate, GoogleFacebookLoginDelegate{
 
-    
     //MARK:- IBoutlet
     @IBOutlet weak var collectionTabUIView: UICollectionView!
     @IBOutlet weak var collectionContainerView: UICollectionView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     @IBOutlet weak var collectionTabUIViewHeight: NSLayoutConstraint!
     @IBOutlet weak var collectionContainerViewHeight: NSLayoutConstraint!
     
     
     //MARK:- AuthDelegate
+    
+    //Mark:- Handle Signin Error
     func didTapRegisterBtn(user : User) {
         print("Taped Register")
         
@@ -35,9 +36,50 @@ class AuthenticationViewController : UIViewController, LoginDelegate, SignDelega
         showAlert(title: "Sign In Error!", message: message)
     }
     
+    //Register with Google
+    func didTapRegisterGoogleBtn() {
+        
+        googleAuth.start(view: self) { data in
+            self.user = data.toUserModel()
+            self.collectionContainerView.reloadData()
+        } failure: { error in
+            print(error)
+        }
+
+    }
+    //Register With Facebook
+    func didTapRegisterFacebookBtn() {
+        facebookAuth.start(vc: self) { data in
+
+            self.user = data.toUserModel()
+            self.collectionContainerView.reloadData()
+        } failure: { error in
+            print(error)
+        }
+    }
     
+    //Login With Google
+    func didTapLoginGoogleBtn() {
+        
+        googleAuth.start(view: self) { data in
+        
+            self.loginWithGoogle(googleToken: String(data.id))
+        } failure: { error in
+            self.showAlert(title: "Login Failed !", message: error)
+        }
+    }
+    //Login With Facebook
+    func didTapLoginFacebookBtn() {
+        facebookAuth.start(vc: self) { data in
+            self.loginWithFacebook(facebookToken: data.id)
+        } failure: { error in
+            print(error)
+        }
+
+    }
+    
+    //Handle Error Login with Email
     func didTabConfirmBtn() {
-        print("Taped Confird")
         navigateFormAuthScreenToHomeScreen()
     }
     
@@ -45,30 +87,18 @@ class AuthenticationViewController : UIViewController, LoginDelegate, SignDelega
         showAlert(title: "Login Error!", message: message)
      
     }
-    //Facebook, Google
-    func didTapGoogleBtn() {
-        
-        googleAuth.start(view: self) { data in
-            self.user = data.toUserModel()
-            //Save GoogleAccessToken
-            self.userDefault.setGoogleAccessToken(data.token)
-            self.collectionContainerView.reloadData()
-        } failure: { error in
-            print(error)
-        }
-
-    }
     
-    func didTapFacebookBtn() {
-        print("")
-    }
+    
+   
     
     //MARK:- Properties
-    
     private var googleAuth = GoogleAuth()
+    private var facebookAuth = FacebookAuth()
     private var userDefault = UserDefaultHelper()
     var user : User? = nil
     var previousIndex : Int?
+    
+    private var netwrokingAgent = AFNetworkingAgent.shared
     var loginAndSignConstant : [TabViewItem] =
         [TabViewItem(name: "Login", isSelected: true),TabViewItem(name: "Sign", isSelected: false)]
    
@@ -88,11 +118,9 @@ class AuthenticationViewController : UIViewController, LoginDelegate, SignDelega
     }
     
     //MARK:- UI SetUp
-    
     fileprivate func initView(){
-        
-        
-        
+        indicatorView.isHidden = true
+        indicatorView.hidesWhenStopped = true
         //Register And SetupDataAndDelegate
         setUpDelegateAndDataSource()
         registerForCell()
@@ -108,8 +136,6 @@ class AuthenticationViewController : UIViewController, LoginDelegate, SignDelega
         collectionContainerView.allowsMultipleSelection = true
         
         collectionContainerView.isScrollEnabled = false
-        
-        
         collectionTabUIViewHeight.constant = 60
       
         
@@ -124,11 +150,7 @@ class AuthenticationViewController : UIViewController, LoginDelegate, SignDelega
         collectionContainerView.registerForCell(identifier: SignInTabCollectionViewCell.identifier)
     }
     
-    
-    
     fileprivate func didTapUITabView(tabName : String){
-        
-        
         var selectedSection = 0
         for (index, item) in self.loginAndSignConstant.enumerated(){
             
@@ -146,9 +168,53 @@ class AuthenticationViewController : UIViewController, LoginDelegate, SignDelega
         }
     }
     
+    fileprivate func loginWithGoogle(googleToken : String){
+        indicatorView.isHidden = false
+        indicatorView.startAnimating()
+        netwrokingAgent.loginWithGoogle(googleToken) { result in
+            self.doLoginProcess(result)
+        }
+    }
+    
+    fileprivate func loginWithFacebook(facebookToken : String){
+        indicatorView.isHidden = false
+        indicatorView.startAnimating()
+        netwrokingAgent.loginWithFacebook(facebookToken) { result in
+            self.doLoginProcess(result)
+        }
+    }
     
     
+   
     
+    fileprivate func doLoginProcess(_ result : NetworkResult<RegisterResponse>){
+        
+        switch result{
+        case .success(let data):
+            print(data.message ?? "login success message nil")
+            //Code is 400
+            if let code = data.code {
+                if code >= 400{
+                    showAlert(title: "Login Failed !", message: data.message ?? "")
+                    indicatorView.isHidden = true
+                    indicatorView.stopAnimating()
+                return
+                }
+            }
+            //Set Token To UserDefaults
+            self.userDefault.setToken(data.token)
+            indicatorView.isHidden = true
+            indicatorView.stopAnimating()
+            self.navigateFormAuthScreenToHomeScreen()
+        
+        case .error(let error):
+            print("\(error)")
+            showAlert(title: "Login Failed !", message: error)
+            indicatorView.isHidden = true
+            indicatorView.stopAnimating()
+        }
+        
+    }
     
 }
 
@@ -195,6 +261,7 @@ extension AuthenticationViewController : UICollectionViewDataSource{
             case 0:
                 let cell  = collectionView.dequeueCell(identifier: LoginTabCollectionViewCell.identifier, indexPath: indexPath) as! LoginTabCollectionViewCell
                 cell.delegate = self
+                cell.googleFacebookLoginDelegate = self
                 cell.user  = user
                 return cell
             case 1:

@@ -14,19 +14,19 @@ class PaymentMethodViewController: UIViewController {
  
     @IBOutlet weak var iCoresalView : iCarousel!
     @IBAction func didTapConfirmBtn(_ sender: Any) {
-        
-        navigateFromPaymentMethodScreenToGettingTicketScreen(totalPrice: totalPrice, movieID: movieID, timeSlotID: timeSlotID, cinemaID: cinemaID, selectedSeats: selectedSeats, selectedSnacks: selectedSnacks, bookingDate: bookingDate, selectedCardId: selectedCardId)
+        doCheckOut()
     }
    
     
     @IBAction func didTapAddCardBtn(_ sender: Any) {
         checkTextFieldEmpty {
-           let cardNumber = textFieldCardNumber.text
-           let cardHolderName = textFieldCardHolder.text
-           let cardCVC = textFieldCVC.text
-           let cardExpiredDate = textFieldDate.text
-            
-           addNewCard(Card(id: nil, cardHolder: cardHolderName, cardNumber: cardNumber, expirationDate: cardExpiredDate, cardType: nil, cvc: cardCVC))
+           let cardNumber = textFieldCardNumber.text ?? ""
+           let cardHolderName = textFieldCardHolder.text ?? ""
+           let cardCVC = textFieldCVC.text ?? ""
+           let cardExpiredDate = textFieldDate.text ?? ""
+            let card = Card(id: nil, cardHolder: cardHolderName, cardNumber: cardNumber, expirationDate: cardExpiredDate, cardType: nil, cvc: cardCVC)
+        
+           addNewCard(card)
         }
         
     }
@@ -68,13 +68,15 @@ class PaymentMethodViewController: UIViewController {
     var movieID : Int = -1
     var cinemaID: Int = -1
     var timeSlotID: Int = -1
+    var cinemaDayTimeslot : Timeslot? = nil
+    var cinema : Cinema? = nil
     var selectedSeats = [MovieSeatVO]()
     var bookingDate : Date? = nil
     var selectedSnacks = [Snack]()
     var totalPrice : Double = 0.0
     var selectedCardId : Int = -1
     
-    var pyamentModel : PaymentModel = PaymentModelImpl.shared
+    var paymentModel : PaymentModel = PaymentModelImpl.shared
     var cards = [Card]()
     
     
@@ -93,15 +95,13 @@ class PaymentMethodViewController: UIViewController {
     fileprivate func initView(){
         navigationItem.title = "Choose Visa"
         lblTotalPrice.text = "$ \(totalPrice)"
+        
         setUpTextField()
         
         registerCell()
         iCoresalView.type = .rotary
         confirmCardAddBtn.isHidden = true
-        
-        
-        
-        
+    
         fetchCard()
     }
     
@@ -136,7 +136,7 @@ class PaymentMethodViewController: UIViewController {
     }
     
     fileprivate func fetchCard(){
-        pyamentModel.getProfile { result in
+        paymentModel.getProfile { result in
             switch result{
             case .success(let data):
                 self.cards =  data.data?.cards ?? [Card]()
@@ -153,9 +153,8 @@ class PaymentMethodViewController: UIViewController {
     }
     
     fileprivate func addNewCard(_ card : Card){
-        
-        
-        pyamentModel.addNewCard(card: card) { result in
+    
+        paymentModel.addNewCard(card: card) { result in
             switch result{
             case .success(let cards):
                 self.bindNewCardData(cards)
@@ -171,7 +170,7 @@ class PaymentMethodViewController: UIViewController {
         self.iCoresalView.reloadData()
         if !self.cards.isEmpty{
             selectedCardId = self.cards[iCoresalView.currentItemIndex].id  ?? -1
-            print(selectedCardId)
+           
         }
             
         //Success  - reset View
@@ -179,6 +178,7 @@ class PaymentMethodViewController: UIViewController {
         confirmCardAddBtn.isHidden = true
         stackViewNewCard.isHidden = true
         addNewBtn.setTitle("Add New Card", for: .normal)
+        addNewBtn.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         
         
     }
@@ -198,9 +198,66 @@ class PaymentMethodViewController: UIViewController {
             textFieldCVC.isError(baseColor: red.cgColor, numberOfShakes: 1.0, revert: true)
             textFieldCVC.placeholder = "Please Enter Card CVC"
         }else{
+            
             addNewCard()
         }
         
+    }
+    
+    fileprivate func doCheckOut(){
+        var row = ""
+        var seatNumber = ""
+        //Format seat_number and row
+        selectedSeats.forEach { seat in
+            row += "\(seat.symbol ?? ""),"
+            seatNumber += "\(seat.seatName ?? ""),"
+        }
+        if !row.isEmpty{
+            row.removeLast()
+        }
+        if !seatNumber.isEmpty{
+            seatNumber.removeLast()
+        }
+        //Call Network
+        let selectedCheckOutSnack  = selectedSnacks.map{$0.toCheckOutSnack()}
+        let checkOutData = CheckOutModel(cinemaDayTimeslotID: cinemaDayTimeslot?.cinemaDayTimeslotID ?? -1, row: row, seatNumber: seatNumber, bookingDate: bookingDate?.formattedDate, movieID: movieID, cardID: selectedCardId, cinemaID: cinema?.cinemaID, totalPrice: totalPrice, snacks: selectedCheckOutSnack )
+        
+        checkOutTicket(checkOutData)
+        
+    }
+    
+    
+    fileprivate func checkOutTicket(_ checkOut : CheckOutModel){
+        //Call Actual Network
+        paymentModel.checkOut(checkOut: checkOut) { result in
+            switch result {
+            case .success(let data):
+                if let code = data.code{
+                    if code >= 400{
+                        print(data.message ?? "checkout error")
+                        self.showAlert(title: "Sorry! Ticket's Error", message: data.message ?? "")
+                        return
+                    }
+                    //Go to Ticket Voucher
+                    self.goToCheckOutScreen(data)
+                
+                }
+                
+            case .error(let error):
+                self.showAlert(title: "Ticket's Error!", message: error)
+                print(error)
+            }
+        }
+        
+    }
+    
+    fileprivate func goToCheckOutScreen(_ checkOutResponse : CheckOutResponse){
+        
+        if !self.cards.isEmpty{
+            selectedCardId = self.cards[iCoresalView.currentItemIndex].id  ?? -1
+            print(selectedCardId)
+        }
+        self.navigateFromPaymentMethodScreenToGettingTicketScreen(movieID: movieID, cinema: cinema ?? Cinema(), bookingDate: bookingDate, checkOutData: checkOutResponse )
     }
     
     
@@ -222,8 +279,7 @@ extension PaymentMethodViewController : iCarouselDelegate, iCarouselDataSource{
         let visaUIView = VisaCardView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 1.2 , height: view?.frame.height ?? 230))
         
         visaUIView.data = cards[index]
-        let currentIndex = carousel.currentItemIndex
-        print(cards[currentIndex])
+      
        
         return visaUIView
     }
@@ -236,7 +292,7 @@ extension PaymentMethodViewController : iCarouselDelegate, iCarouselDataSource{
     }
     
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
-        print("selectdd \(cards[index].id ?? -1)")
+        print("selected \(cards[index].id ?? -1)")
     }
     
     

@@ -15,8 +15,9 @@ class CinemaCollectionViewCell: UICollectionViewCell {
     
     
     
-    
+    var onTapTimeSlotItem : (Timeslot, Cinema)->Void = {_,_  in}
     var delegate : TimeSlotDelegate? = nil
+    
     private var dayTimeSlotList = [Timeslot]()
     
     var data : Cinema? {
@@ -24,7 +25,8 @@ class CinemaCollectionViewCell: UICollectionViewCell {
             if let cinema = data{
                 lblCinemaName.text = cinema.cinema
                 dayTimeSlotList = cinema.timeslots ?? [Timeslot]()
-            
+                
+                self.collecitonViewCinemaTiemSlot.reloadData()
                 
             }
         }
@@ -61,6 +63,19 @@ extension CinemaCollectionViewCell : UICollectionViewDataSource, UICollectionVie
         
             let cell =  collectionView.dequeueCell(identifier: TimeCollectionViewCell.identifier, indexPath: indexPath) as TimeCollectionViewCell
         cell.data = dayTimeSlotList[indexPath.row]
+        cell.onTapTimeSlotItem = {timeSlot in
+            
+            self.data?.timeslots?.forEach{ timeSlotItem in
+                
+                if timeSlotItem.cinemaDayTimeslotID ==  timeSlot.cinemaDayTimeslotID {
+                  //  timeSlotItem.isSelected = true
+                    self.onTapTimeSlotItem(timeSlot, self.data ?? Cinema())
+                }
+                 
+            }
+            
+            
+        }
         return cell
         }
       
@@ -70,29 +85,7 @@ extension CinemaCollectionViewCell : UICollectionViewDataSource, UICollectionVie
         return CGSize(width: collectionView.bounds.width / 3, height: 48)
       
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if dayTimeSlotList.count > indexPath.row {
-            let item = dayTimeSlotList[indexPath.row]
-        
-        
-        let cell = collectionView.cellForItem(at: indexPath) as! TimeCollectionViewCell
-        cell.uiHostView.backgroundColor = UIColor(named: "color_primary")
-        cell.lblTime.textColor = .white
-        
-        delegate?.onTapTimeSlot(indexPath: indexPath, cinema: data!, timeSlot: item)
-        }
-       
-       
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-     let  cell = collectionView.cellForItem(at: indexPath) as! TimeCollectionViewCell
-        cell.uiHostView.backgroundColor = .white
-        cell.lblTime.textColor = .black
-        
-    }
+
     
     
 }
