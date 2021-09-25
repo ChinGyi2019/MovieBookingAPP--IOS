@@ -144,14 +144,14 @@ class GettingTicketViewController: UIViewController {
         }
     }
     
-    fileprivate func bindMovieData(_ data : MovieDetailsResponse){
+    fileprivate func bindMovieData(_ data : MovieDetails?){
         
-        let backDropPath = "\(AppConstants.BASE_ORIGINAL_IMG_URL)/\(data.data?.posterPath ?? "")"
+        let backDropPath = "\(AppConstants.BASE_ORIGINAL_IMG_URL)/\(data?.posterPath ?? "")"
         
         ivMovieTicketDropBack.sd_setImage(with: URL(string: backDropPath))
         ivMovieTicketDropBack.contentMode = .scaleToFill
-        lblMovieTitle.text = data.data?.originalTitle
-        let runTime = data.data?.runtime ?? 0
+        lblMovieTitle.text = data?.originalTitle
+        let runTime = data?.runtime ?? 0
         let runHour : Int = runTime / 60
         let runMinute : Int = runTime % 60
         lblDuration.text = "\(runHour)h \(runMinute)m - \(golbalInstance.filmType)"

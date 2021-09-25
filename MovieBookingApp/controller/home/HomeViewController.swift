@@ -8,29 +8,35 @@
 import UIKit
 import Foundation
 import SDWebImage
+import RxSwift
 
 class HomeViewController: UIViewController, MovieItemDelegate {
-    
+    //MARK:- IBOutlet
     @IBOutlet weak var collectionViewCommingSoon: UICollectionView!
     @IBOutlet weak var collectionViewNowShowing: UICollectionView!
-    
     @IBOutlet weak var ivProfile: UIImageView!
     @IBOutlet weak var lblUserName: UILabel!
     
+    //MARK:- Deletate
+    func onMovieTap(movieId : Int) {
+        navigateFormHomeToMovieDetailsScreen(movieId: movieId)
+    }
+    
+    //MARK:- Properties
+    private var delegate : MovieItemDelegate? = nil
+    private var movieModel : MovieModel = MovieModelImpl.shared
+    private var userModel : UserModel = UserModelImpl.shared
+    private var userDefaultHelper = UserDefaultHelper.shared
     private var nowShowingMovies = [MovieResult]()
     private var comingSoonMovies = [MovieResult]()
     
     private let itemSpacing :CGFloat = 10
     
+    private let disposeBag = DisposeBag()
+    private let movieRepository = MovieRepositoryImpl.shared
+    private let refreshController = UIRefreshControl()
     
-    func onMovieTap(movieId : Int) {
-       navigateFormHomeToMovieDetailsScreen(movieId: movieId)
-    }
-
-    private var netwrokingAgent = AFNetworkingAgent.shared
-    var delegate : MovieItemDelegate? = nil
-    private var userDefaultHelper = UserDefaultHelper.shared
-    
+    //MARK:- LifeCycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         processPreNavigation()
@@ -38,10 +44,11 @@ class HomeViewController: UIViewController, MovieItemDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         initView()
     }
     
+    //MARK:- ViewInit
     fileprivate func initView(){
         //Register
         registerCell()
@@ -51,10 +58,22 @@ class HomeViewController: UIViewController, MovieItemDelegate {
         navigationController?.navigationBar.isHidden = false
         
         //fetching Network
-        fetchUserProfile()
-        fetchNowShowingMovies(take: 15, status: .NowShowing)
-        fetchUpComingMovies(take: 15, status: .ComingSoon)
         
+        fetchData()
+        fetchUserProfile()
+        
+        //Delete first three After 5s
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            self.movieRepository.delete(type: .ComingSoon)
+        })
+        
+        
+    }
+    
+    private func fetchData(){
+        
+        fetchNowShowingMovies(take: 5, status: .NowShowing)
+        fetchUpComingMovies(take: 15, status: .ComingSoon)
     }
     
     fileprivate func processPreNavigation(){
@@ -76,18 +95,19 @@ class HomeViewController: UIViewController, MovieItemDelegate {
         delegate = self
     }
     
-     func registerCell(){
+    func registerCell(){
         collectionViewNowShowing.registerForCell(identifier: MovieCollectionViewCell.identifier)
         //Comming Soon
         collectionViewCommingSoon.registerForCell(identifier: MovieCollectionViewCell.identifier)
     }
-    
+    //MARK:- authentiacte
     func  isUserAuthenticated() -> Bool {
         return userDefaultHelper.getToken().isEmpty == false && userDefaultHelper.getToken() != ""
     }
+    
     //MARK:- Profile
     fileprivate func fetchUserProfile(){
-        netwrokingAgent.getProfile { response in
+        userModel.getProfile { response in
             switch response{
             case .success(let data):
                 self.bindProfileData(profile : data)
@@ -97,48 +117,64 @@ class HomeViewController: UIViewController, MovieItemDelegate {
         }
     }
     
-    fileprivate func fetchUpComingMovies(take : Int, status : MovieType){
-        netwrokingAgent.fetchMovies(take: take, status: status.rawValue){ response in
-            switch response{
-            case .success(let data):
-                self.bindUpComingMovies(movies : data)
-            case .error(let error):
-                debugPrint(error)
-            }
-        }
+    fileprivate func bindProfileData(profile : UserData?){
+        
+        let backDropPath = "\(AppConstants.BASE_URL)/\( profile?.profileImage ?? "")"
+        ivProfile.sd_setImage(with: URL(string: backDropPath))
+        let name : String = profile?.name ?? ""
+        lblUserName.text = "Hi \(name)!"
     }
     
-    fileprivate func bindUpComingMovies(movies : MovieListResponse){
-        comingSoonMovies = movies.data ?? [MovieResult]()
+    //MARK:- Movies
+    fileprivate func fetchUpComingMovies(take : Int, status : MovieType){
+//
+        movieModel.fetchMovies(take: take, status: status)
+            .subscribe(onNext: { data in
+                self.bindUpComingMovies(movies : data)
+            })
+            .disposed(by: disposeBag)
+//
+//        movieModel.fetchMovies(take: take, status: status){ response in
+//            switch response{
+//            case .success(let data):
+//                self.bindUpComingMovies(movies : data)
+//            case .error(let error):
+//                debugPrint(error)
+//            }
+//        }
+    }
+    
+    
+    
+    fileprivate func bindUpComingMovies(movies : [MovieResult]){
+        comingSoonMovies = movies
         collectionViewCommingSoon.reloadData()
         
     }
     
     fileprivate func fetchNowShowingMovies(take : Int, status : MovieType){
-        netwrokingAgent.fetchMovies(take: take, status: status.rawValue){ response in
-            switch response{
-            case .success(let data):
+        
+        movieModel.fetchMovies(take: take, status: status)
+            .subscribe(onNext: { data in
                 self.bindNowShowingMovies(movies : data)
-            case .error(let error):
-                debugPrint(error)
-            }
-        }
+            })
+            .disposed(by: disposeBag)
+        
+//        movieModel.fetchMovies(take: take, status: status){ response in
+//            switch response{
+//            case .success(let data):
+//                self.bindNowShowingMovies(movies : data)
+//            case .error(let error):
+//                debugPrint(error)
+//            }
+//        }
     }
     
-    fileprivate func bindNowShowingMovies(movies : MovieListResponse){
-        nowShowingMovies = movies.data ?? [MovieResult]()
+    fileprivate func bindNowShowingMovies(movies : [MovieResult]){
+        nowShowingMovies = movies
         collectionViewNowShowing.reloadData()
     }
     
-    fileprivate func bindProfileData(profile : ProfileResponse){
-        let backDropPath = "\(AppConstants.BASE_URL)/\( profile.data?.profileImage ?? "")"
-        
-        ivProfile.sd_setImage(with: URL(string: backDropPath))
-        let name : String = profile.data?.name ?? ""
-        lblUserName.text = "Hi \(name)!"
-    }
-
-
 }
 
 extension HomeViewController : UICollectionViewDataSource{
@@ -146,7 +182,7 @@ extension HomeViewController : UICollectionViewDataSource{
         if collectionView == collectionViewNowShowing{
             return nowShowingMovies.count
         }else{
-          return  comingSoonMovies.count
+            return  comingSoonMovies.count
         }
     }
     

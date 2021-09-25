@@ -121,7 +121,6 @@ class MovieSeatViewController: UIViewController {
                 data.data?.forEach{list in
                     self.seats.append(contentsOf: list)
                 }
-                print(self.seats.count)
                 
                 self.collectionViewSeats.reloadData()
             case .error(let error):

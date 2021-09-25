@@ -14,6 +14,13 @@ target 'MovieBookingApp' do
   pod 'SDWebImage', '~> 5.0'
   pod 'YouTubePlayer'
   pod 'GoogleSignIn', '~> 6.0.0' 
-  pod 'FBSDKLoginKit' '~> 9.1.0'
+  pod 'FBSDKLoginKit' #'~> 9.1.0'
+  pod 'RealmSwift', '~>10’
+  pod 'RxAlamofire'
+  pod 'RxRealm'
+  pod 'RxCocoa', '6.2.0'
+  pod 'RxDataSources', '~> 5.0.0'
+  pod "RxCoreData", "~> 1.0.0"
+
     
 end

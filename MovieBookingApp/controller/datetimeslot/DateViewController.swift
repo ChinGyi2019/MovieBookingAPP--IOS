@@ -27,6 +27,7 @@ class DateViewController: UIViewController {
     @IBOutlet weak var collectinViewHeightGoldenCity: NSLayoutConstraint!
     @IBOutlet weak var collectionViewHeightWestPoint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewCinmaHostHeight : NSLayoutConstraint!
+    @IBOutlet weak var indicatorView : UIActivityIndicatorView!
     
     //MARK:- Properties
     var movieID : Int = -1
@@ -71,6 +72,8 @@ class DateViewController: UIViewController {
     fileprivate func initView(){
         navigationItem.title = "Choose Yor Date"
         
+        indicatorView.isHidden = true
+        indicatorView.hidesWhenStopped = true
         //ScrollView fit
         let contentRect: CGRect = scrollViewHost.subviews.reduce(into: .zero) { rect, view in
             rect = rect.union(view.frame)
@@ -93,16 +96,25 @@ class DateViewController: UIViewController {
         
     }
     
+    private func showLoading(){
+        indicatorView.isHidden = false
+        indicatorView.startAnimating()
+    }
+    
+    private func hideLoading(){
+        indicatorView.stopAnimating()
+    }
+    
     fileprivate func registerCell(){
         
         collectionViewDays.registerForCell(identifier: DateCollectionViewCell.identifier)
         collectionViewAvailableIn.registerForCell(identifier: AvailableInCollectionViewCell.identifier)
         collectionViewCinemaHost.registerForCell(identifier: CinemaCollectionViewCell.identifier)
-        //        collectionViewWestPoint.registerForCell(identifier: TimeCollectionViewCell.identifier)
+        
         
         collectionViewDays.allowsMultipleSelection = false
         collectionViewAvailableIn.allowsMultipleSelection = false
-        // collectionViewCinemaHost.allowsMultipleSelection = false
+      
     }
     
     fileprivate func setUpDataSourcesAndDelegates(){
@@ -121,8 +133,7 @@ class DateViewController: UIViewController {
     
     fileprivate func setUpCollectionViewHeight(){
         collectionViewHeightAvailableIn.constant = 56
-        //        collectinViewHeightGoldenCity.constant = 56*2
-        //        collectionViewHeightWestPoint.constant = 56*2
+      
         
         //Need to call unless it won't change
         self.view.layoutIfNeeded()
@@ -130,7 +141,7 @@ class DateViewController: UIViewController {
     
     //OnTapDate Item
     fileprivate func onTapDates(date : String){
-        
+        showLoading()
         self.twoWeekDates.forEach{ item in
             if item.date.formattedDate ==  date {
                 item.isSelected = true
@@ -146,6 +157,7 @@ class DateViewController: UIViewController {
     
     //OnTapTimeslot Item
     fileprivate func onTapTimeSlot(_ timeSlot : Timeslot,_ cinema : Cinema){
+      
         self.selectedCinema = cinema
         self.cinemas.forEach { cinemaItem in
             
@@ -160,7 +172,9 @@ class DateViewController: UIViewController {
             
             
         }
+       
         self.collectionViewCinemaHost.reloadData()
+        hideLoading()
     }
     //MARK:- Network
     fileprivate func fetchCinemaDayTimeSlot(date: String, movieId: Int){

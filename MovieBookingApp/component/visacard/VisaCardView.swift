@@ -142,7 +142,7 @@ class VisaCardView: UIView {
         setUpConstraintForStackView()
     }
     fileprivate func setUpConstraintForStackView(){
-        mainVStack.translatesAutoresizingMaskIntoConstraints = false
+      //  mainVStack.translatesAutoresizingMaskIntoConstraints = false
         
 
         mainVStack.translatesAutoresizingMaskIntoConstraints = false

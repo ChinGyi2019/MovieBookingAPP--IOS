@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MovieType : String{
+enum MovieType : String, CaseIterable{
     
     case NowShowing = "current"
     case ComingSoon = "comingsoon"

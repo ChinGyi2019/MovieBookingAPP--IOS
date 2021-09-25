@@ -21,11 +21,13 @@ class DateCollectionViewCell: UICollectionViewCell {
                 lblWeekDays.text = data.date.dayOfWeek()
                 lblDays.text =  data.date.onlyDay
                 if data.isSelected{
+                    lblDays.textColor = .black
+                    lblWeekDays.textColor = .black
+                    hostUIView.backgroundColor = .white
+                }else{
                     lblDays.textColor = .white
                     lblWeekDays.textColor = .white
-                }else{
-                    lblDays.textColor = .gray
-                    lblWeekDays.textColor = .gray
+                    hostUIView.backgroundColor = nil
                 }
             }
         }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 
 // MARK: - RegisterListResponse
@@ -34,6 +35,23 @@ struct UserData: Codable {
         case profileImage = "profile_image"
         case cards
     }
+    
+    @discardableResult
+    func toProfileEntity(_ context : NSManagedObjectContext) -> ProfileEntity {
+        
+        let entity = ProfileEntity(context: context)
+        
+        entity.id = 1
+        entity.name = name
+        entity.email = email
+        entity.phone = phone
+        entity.profilePath = profileImage
+        cards?.forEach{
+            entity.addToCard($0.toCardEntity(context))
+        }
+        return entity
+        
+    }
 }
 
 
@@ -49,6 +67,19 @@ struct Card: Codable {
         case expirationDate = "expiration_date"
         case cardType = "card_type"
         case cvc = "cvc"
+    }
+    
+    func toCardEntity(_ context : NSManagedObjectContext) -> CardEntity {
+        let entity = CardEntity(context: context)
+        entity.id = Int32(id ?? 0)
+        entity.cardHolder = cardHolder
+        entity.cardNumber = cardNumber
+        entity.expirationDate = expirationDate
+        entity.cardType = cardType
+        entity.cvc = cvc
+        
+        return entity
+       
     }
 }
 

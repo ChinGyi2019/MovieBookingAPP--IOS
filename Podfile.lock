@@ -5,6 +5,7 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
+  - Differentiator (5.0.0)
   - FBSDKCoreKit (11.0.1):
     - FBSDKCoreKit/Core (= 11.0.1)
   - FBSDKCoreKit/Core (11.0.1):
@@ -26,6 +27,34 @@ PODS:
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.6.1)
   - MMText (1.3.6)
+  - Realm (10.12.0):
+    - Realm/Headers (= 10.12.0)
+  - Realm/Headers (10.12.0)
+  - RealmSwift (10.12.0):
+    - Realm (= 10.12.0)
+  - RxAlamofire (6.1.1):
+    - RxAlamofire/Core (= 6.1.1)
+  - RxAlamofire/Core (6.1.1):
+    - Alamofire (~> 5.4)
+    - RxSwift (~> 6.0)
+  - RxCocoa (6.2.0):
+    - RxRelay (= 6.2.0)
+    - RxSwift (= 6.2.0)
+  - RxCoreData (1.0.1):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxRealm (5.0.1):
+    - Realm (~> 10.5)
+    - RealmSwift (~> 10.5)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxRelay (6.2.0):
+    - RxSwift (= 6.2.0)
+  - RxSwift (6.2.0)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
@@ -38,6 +67,12 @@ DEPENDENCIES:
   - FBSDKLoginKit
   - GoogleSignIn (~> 6.0.0)
   - MMText
+  - RealmSwift (~> 10)
+  - RxAlamofire
+  - RxCocoa (= 6.2.0)
+  - RxCoreData (~> 1.0.0)
+  - RxDataSources (~> 5.0.0)
+  - RxRealm
   - SDWebImage (~> 5.0)
   - SideMenu
   - Wormholy
@@ -47,6 +82,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AppAuth
+    - Differentiator
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
     - FBSDKLoginKit
@@ -54,6 +90,15 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - MMText
+    - Realm
+    - RealmSwift
+    - RxAlamofire
+    - RxCocoa
+    - RxCoreData
+    - RxDataSources
+    - RxRealm
+    - RxRelay
+    - RxSwift
     - SDWebImage
     - SideMenu
     - Wormholy
@@ -62,6 +107,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   FBSDKCoreKit: 38c9e29a3f1436362acacff6486d3a28628c288f
   FBSDKCoreKit_Basics: 06780a4a12e16596bde8406add02c6aa1bf38616
   FBSDKLoginKit: 8243e04c590c38b85c69fcf09d1234514d2475c3
@@ -69,11 +115,20 @@ SPEC CHECKSUMS:
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: 36689134877faeb055b27dfa4ccc9ceaa42e029e
   MMText: 8078f4f2cb256db1633d25d16dfb8a689f669687
+  Realm: 32488213acb44660539c619d620cec1bac046166
+  RealmSwift: 0abdca6231d5ff8a4f84cef9c1121ef95a483faf
+  RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
+  RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
+  RxCoreData: 4c1686b30499c05b90104eec1a879f41aa1a0a65
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
+  RxRealm: bd7c601e78cfebe48c24d4550db83c31e1ab2c33
+  RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
+  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   Wormholy: 2e70f64227e010d363f8d33268369f77faf12471
   YouTubePlayer: 2b5f2830d8f9b2cde942083211291e382c9e6bd5
 
-PODFILE CHECKSUM: 76a9e297ea038b1854e3856d530247ff92e9993c
+PODFILE CHECKSUM: 44a74fdca03e775d8bf85e7e397c829f8c8708a5
 
 COCOAPODS: 1.10.1

@@ -11,6 +11,7 @@
 //   let movieListResponse = try? newJSONDecoder().decode(MovieListResponse.self, from: jsonData)
 
 import Foundation
+import CoreData
 
 // MARK: - MovieListResponse
 struct MovieListResponse: Codable {
@@ -32,5 +33,21 @@ struct MovieResult: Codable {
         case releaseDate = "release_date"
         case genres
         case posterPath = "poster_path"
+    }
+    
+    @discardableResult
+    func toMovieEntity(type : MovieType, context : NSManagedObjectContext, statusTypeRepo : MovieStatusTypeRepository) -> MovieEntity{
+           let entity = MovieEntity(context: context)
+            
+        entity.id = Int64(id ?? 0)
+        entity.originalTitle = originalTitle
+        entity.releaseDate = releaseDate
+        //entity.status = type.rawValue
+        entity.addToStatusType(statusTypeRepo.getStatusTypeEntity(type: type))
+        entity.genres = genres?.map{String($0)}.joined(separator: ",")
+        entity.posterPath = posterPath
+        
+        
+        return entity
     }
 }

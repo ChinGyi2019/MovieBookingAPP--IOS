@@ -8,6 +8,8 @@
 import Foundation
 import Alamofire
 
+import RxSwift
+
 protocol MovieNetworkingProtocol {
     
     
@@ -29,6 +31,10 @@ protocol MovieNetworkingProtocol {
     func fetchMovies(take: Int,status : String, completion: @escaping (NetworkResult<MovieListResponse>) -> Void)
     
     func fetchMovieDetails(movieId: Int, completion: @escaping (NetworkResult<MovieDetailsResponse>) -> Void)
+    
+    func fetchMovies(take: Int,status : String) -> Observable<MovieListResponse>
+    
+    func fetchMovieDetails(movieId: Int) -> Observable<MovieDetailsResponse>
     
     func fetchCinemaDayTimeSlot(movieId: Int,date : String, completion: @escaping (NetworkResult<CinemaDayTimeSlotResponse>) -> Void)
     

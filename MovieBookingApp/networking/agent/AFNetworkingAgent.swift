@@ -7,25 +7,40 @@
 
 import Foundation
 import Alamofire
+import RxAlamofire
+import RxSwift
 
 class AFNetworkingAgent: MovieNetworkingProtocol {
-   
     
-   
+    //MARK: - Observable
+    func fetchMovies(take: Int, status: String) -> Observable<MovieListResponse> {
+        return RxAlamofire.requestDecodable(.get, MovieBookingEndPoint.movies(take, status))
+            .flatMap { items -> Observable<MovieListResponse> in
+                .just(items.1)
+            }
+    }
+    
+    func fetchMovieDetails(movieId: Int) -> Observable<MovieDetailsResponse> {
+        return RxAlamofire.requestDecodable(.get, MovieBookingEndPoint.movieDetails(movieId))
+            .flatMap { items -> Observable<MovieDetailsResponse> in
+                .just(items.1)
+            }
+    }
+    
+    
 
     
     static var shared = AFNetworkingAgent()
-   
+    
     init() {}
-   
+    
     private var headers: HTTPHeaders {
         get{
             return [.authorization(bearerToken: UserDefaultHelper.shared.getToken())
-                    ]
+            ]
         }
     }
-//    .contentType("application/json"),
-//    .accept("application/json")
+
     
     //MARK:- Authenticaiton
     func register(user: User, completion: @escaping (NetworkResult<RegisterResponse>) -> Void) {
@@ -48,17 +63,17 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: RegisterResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
-                debugPrint("\(String(describing: error.underlyingError))")
+                switch response.result{
+                
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                    debugPrint("\(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     func loginWithEmail(user: User, completion: @escaping (NetworkResult<RegisterResponse>) -> Void) {
@@ -73,15 +88,15 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
                    method: .post,
                    parameters: userDict,
                    headers: header
-                   )
-            .validate(statusCode: 200 ..< 300)
-            .responseDecodable(of: RegisterResponse.self)
-            { response in
+        )
+        .validate(statusCode: 200 ..< 300)
+        .responseDecodable(of: RegisterResponse.self)
+        { response in
             switch response.result{
             
             case .success(let data):
                 completion(.success(data))
-            
+                
             case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
                 
                 debugPrint("Underling error \(String(describing: error.underlyingError))")
@@ -105,18 +120,18 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: RegisterResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     func loginWithFacebook(_ facebookToken: String, completion: @escaping (NetworkResult<RegisterResponse>) -> Void) {
@@ -132,67 +147,68 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: RegisterResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     func logOut(completion: @escaping (NetworkResult<LogOutResponse>) -> Void) {
-      
+        
         AF.request(MovieBookingEndPoint.logout,
                    method: .post,
                    headers: headers)
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: LogOutResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     //MARK:- Profile
     func getProfile(completion: @escaping (NetworkResult<ProfileResponse>) -> Void) {
-        
+        let header : HTTPHeaders = [.authorization(bearerToken: UserDefaultHelper.shared.getToken())
+        ]
         AF.request(MovieBookingEndPoint.profile,
                    method: .get,
-                   headers: headers)
+                   headers: header)
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: ProfileResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
         
     }
-
-   
+    
+    
     //MARK:- Movies
     func fetchMovies(take: Int,status : String, completion: @escaping (NetworkResult<MovieListResponse>) -> Void) {
         AF.request(MovieBookingEndPoint.movies(take, status),
@@ -200,38 +216,46 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: MovieListResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
         
     }
     func fetchMovieDetails(movieId: Int, completion: @escaping (NetworkResult<MovieDetailsResponse>) -> Void) {
+        /*
+         Test for CoreData Multi Task switch
+         URLSession.shared.dataTask(with: MovieBookingEndPoint.movieDetails(movieId).url){data ,_,_ in
+         
+         completion(.success(try!  JSONDecoder().decode(MovieDetailsResponse.self, from: data!)))
+         }.resume()
+         */
+        
         AF.request(MovieBookingEndPoint.movieDetails(movieId),
                    method: .get)
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: MovieDetailsResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, LoginCommonError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     func fetchCinemaDayTimeSlot(movieId: Int, date: String, completion: @escaping (NetworkResult<CinemaDayTimeSlotResponse>) -> Void) {
@@ -239,18 +263,18 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: CinemaDayTimeSlotResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     
@@ -259,18 +283,18 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: CinemaSeatingPlanResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     func fetchSnackList(completion: @escaping (NetworkResult<SnackListResponse>) -> Void) {
@@ -278,18 +302,18 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: SnackListResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     func fetchPaymentMethods(completion: @escaping (NetworkResult<PaymentMethodListResponse>) -> Void){
@@ -298,18 +322,18 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: PaymentMethodListResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     func addNewCard(card: Card, completion: @escaping (NetworkResult<AddNewCardResponse>) -> Void) {
@@ -320,18 +344,18 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: AddNewCardResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, MDBCommonResponseError.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     func checkOut(checkOut: CheckOutModel, completion: @escaping (NetworkResult<CheckOutResponse>) -> Void) {
@@ -343,7 +367,7 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
         //Url Request
         let url = URL(string: AppConstants.BASE_URL.appending("/api/v1/checkout"))
         var request = URLRequest(url: url!)
-      
+        
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.headers = headers
@@ -367,7 +391,7 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             "cinema_id" : checkOut.cinemaID ?? -1,
             "snacks" : snacksDict
             
-    
+            
         ]
         //Do BodyDict to Json Serialization
         do {
@@ -380,18 +404,18 @@ class AFNetworkingAgent: MovieNetworkingProtocol {
             .validate(statusCode: 200 ..< 300)
             .responseDecodable(of: CheckOutResponse.self)
             { response in
-            switch response.result{
-            
-            case .success(let data):
-                completion(.success(data))
-            
-            case .failure(let error): completion(.error(handleError(response, error, CheckOutErrorModel.self)))
+                switch response.result{
                 
-                debugPrint("Underling error \(String(describing: error.underlyingError))")
+                case .success(let data):
+                    completion(.success(data))
+                    
+                case .failure(let error): completion(.error(handleError(response, error, CheckOutErrorModel.self)))
+                    
+                    debugPrint("Underling error \(String(describing: error.underlyingError))")
+                    
+                }
                 
             }
-            
-        }
     }
     
     
@@ -425,7 +449,7 @@ fileprivate func handleError<T,E: MDBErrorModel>(
     let respCode : Int = response.response?.statusCode ?? 0
     
     let sourcePath : String = response.request?.url?.absoluteString ?? "No URL"
-     
+    
     // 1 - Essential Debug info
     
     print("""
@@ -461,25 +485,25 @@ fileprivate func handleError<T,E: MDBErrorModel>(
 
 protocol MDBErrorModel : Decodable{
     
-var message : String { get }
+    var message : String { get }
     
 }
 
 
 
 class MDBCommonResponseError : MDBErrorModel  {
-var message: String{
-    return statusMessage
-}
-let statusMessage : String
-let error : String
-let statusCode : Int
-
-enum CodingKeys: String,CodingKey  {
-    case statusMessage = "message"
-    case error = "error"
-    case statusCode = "code"
-}
+    var message: String{
+        return statusMessage
+    }
+    let statusMessage : String
+    let error : String
+    let statusCode : Int
+    
+    enum CodingKeys: String,CodingKey  {
+        case statusMessage = "message"
+        case error = "error"
+        case statusCode = "code"
+    }
 }
 
 // MARK: - LoginCommonError
@@ -497,7 +521,7 @@ struct LoginCommonError: Codable, MDBErrorModel {
     enum CodingKeys: String,CodingKey  {
         case statusMessage = "message"
         case errors = "errors"
-
+        
     }
     
 }
@@ -509,7 +533,7 @@ struct Errors: Codable {
     enum CodingKeys: String,CodingKey  {
         case email = "email"
         case phone = "phone"
-
+        
     }
     
 }

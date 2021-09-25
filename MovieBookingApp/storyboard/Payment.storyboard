@@ -26,10 +26,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="792"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pyo-gd-Kgv">
-                                                <rect key="frame" x="0.0" y="0.0" width="390" height="735"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="727"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="g0Z-EJ-qgl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="735"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="390" height="727"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="a6o-wl-GjK">
                                                                 <rect key="frame" x="24" y="0.0" width="342" height="287"/>
@@ -57,18 +57,18 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="cfR-mh-W4a">
-                                                                <rect key="frame" x="24" y="311" width="342" height="100.33333333333331"/>
+                                                                <rect key="frame" x="24" y="311" width="342" height="92.333333333333314"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wPj-GI-cSL">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="342" height="56"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="342" height="48"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter  promo code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-zN-wCs" customClass="MMTextField" customModule="MMText">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="342" height="30"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="342" height="22"/>
                                                                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
                                                                                 <textInputTraits key="textInputTraits"/>
                                                                             </textField>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="haR-sc-iNB">
-                                                                                <rect key="frame" x="0.0" y="38" width="342" height="18"/>
+                                                                                <rect key="frame" x="0.0" y="30" width="342" height="18"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Dont't have any promo code?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AV9-U6-r1a">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="195.66666666666666" height="18"/>
@@ -87,7 +87,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Total : 0.0$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AXJ-nI-ioW">
-                                                                        <rect key="frame" x="0.0" y="80" width="342" height="20.333333333333329"/>
+                                                                        <rect key="frame" x="0.0" y="72" width="342" height="20.333333333333329"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <color key="textColor" systemColor="systemGreenColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -95,7 +95,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="LUU-Dd-4fc">
-                                                                <rect key="frame" x="24" y="435.33333333333331" width="342" height="225.66666666666669"/>
+                                                                <rect key="frame" x="24" y="427.33333333333331" width="342" height="225.66666666666669"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Method" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0s-0m-1nY">
                                                                         <rect key="frame" x="0.0" y="0.0" width="342" height="24"/>
@@ -219,7 +219,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YrW-nF-K6n">
-                                                                <rect key="frame" x="24" y="685" width="342" height="50"/>
+                                                                <rect key="frame" x="24" y="677" width="342" height="50"/>
                                                                 <color key="backgroundColor" name="color_primary"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="QoE-5V-xb4"/>
@@ -354,10 +354,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="wO1-kz-aGl" userLabel="New Card">
-                                                <rect key="frame" x="0.0" y="323" width="390" height="176"/>
+                                                <rect key="frame" x="0.0" y="323" width="390" height="48"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VYW-KR-ebB" customClass="MMTextField" customModule="MMText">
-                                                        <rect key="frame" x="24" y="0.0" width="342" height="44.333333333333336"/>
+                                                        <rect key="frame" x="24" y="0.0" width="342" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="GranthaSangamMN-Regular" family="Grantha Sangam MN" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -365,15 +365,15 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Lily Johson" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guX-Zv-EsP" customClass="MMTextField" customModule="MMText">
-                                                        <rect key="frame" x="24" y="68.333333333333314" width="342" height="39.333333333333343"/>
+                                                        <rect key="frame" x="24" y="24" width="342" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="GranthaSangamMN-Regular" family="Grantha Sangam MN" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="hb8-XL-J4s">
-                                                        <rect key="frame" x="24" y="131.66666666666669" width="342" height="44.333333333333343"/>
+                                                        <rect key="frame" x="24" y="48" width="342" height="0.0"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="08/2" placeholder="Expire Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1kR-pr-UvU" customClass="MMTextField" customModule="MMText">
-                                                                <rect key="frame" x="0.0" y="0.0" width="155" height="44.333333333333336"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="155" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="GranthaSangamMN-Regular" family="Grantha Sangam MN" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -381,7 +381,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="150" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cv3-yx-94c" customClass="MMTextField" customModule="MMText">
-                                                                <rect key="frame" x="187" y="0.0" width="155" height="44.333333333333336"/>
+                                                                <rect key="frame" x="187" y="0.0" width="155" height="0.0"/>
                                                                 <fontDescription key="fontDescription" name="GranthaSangamMN-Regular" family="Grantha Sangam MN" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -491,14 +491,14 @@
             <objects>
                 <viewController storyboardIdentifier="GettingTicketViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aDh-vE-Wy9" customClass="GettingTicketViewController" customModule="MovieBookingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="r2q-lO-JTm">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJj-vW-PfU">
-                                <rect key="frame" x="0.0" y="52" width="390" height="792"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJj-vW-PfU">
+                                <rect key="frame" x="0.0" y="52" width="390" height="948"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fXl-4U-0KS">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="792"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fXl-4U-0KS">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="948"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MNe-ou-1s8">
                                                 <rect key="frame" x="24" y="0.0" width="342" height="930.33333333333337"/>
@@ -529,7 +529,7 @@
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="LOO-P8-hvZ">
                                                                         <rect key="frame" x="0.0" y="0.0" width="342" height="252"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qzb-De-B7d">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qzb-De-B7d">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="342" height="150"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="150" id="mFh-m4-6UK"/>
@@ -722,7 +722,7 @@
                                                                     <constraint firstItem="2FF-rr-hKV" firstAttribute="top" secondItem="XcK-hg-cdj" secondAttribute="top" id="6F8-80-sVK"/>
                                                                     <constraint firstAttribute="trailing" secondItem="2FF-rr-hKV" secondAttribute="trailing" id="BdA-ec-51C"/>
                                                                     <constraint firstItem="2FF-rr-hKV" firstAttribute="leading" secondItem="XcK-hg-cdj" secondAttribute="leading" id="YCE-IB-Ywm"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="2FF-rr-hKV" secondAttribute="bottom" id="peR-xL-YN7"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="2FF-rr-hKV" secondAttribute="bottom" id="nd7-i4-42V"/>
                                                                 </constraints>
                                                             </view>
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5FG-vd-dbg" customClass="EraseCornerView" customModule="MovieBookingApp" customModuleProvider="target">
@@ -785,7 +785,6 @@
                                     <constraint firstItem="fXl-4U-0KS" firstAttribute="leading" secondItem="TJj-vW-PfU" secondAttribute="leading" id="FJc-8h-phq"/>
                                     <constraint firstItem="fXl-4U-0KS" firstAttribute="centerX" secondItem="TJj-vW-PfU" secondAttribute="centerX" id="eKY-Ju-gUh"/>
                                     <constraint firstItem="fXl-4U-0KS" firstAttribute="top" secondItem="TJj-vW-PfU" secondAttribute="top" id="iLL-Ga-2ZB"/>
-                                    <constraint firstItem="fXl-4U-0KS" firstAttribute="centerY" secondItem="TJj-vW-PfU" secondAttribute="centerY" id="jA9-RM-spk"/>
                                     <constraint firstAttribute="trailing" secondItem="fXl-4U-0KS" secondAttribute="trailing" id="ziO-UQ-z42"/>
                                 </constraints>
                             </scrollView>
@@ -799,6 +798,7 @@
                             <constraint firstAttribute="trailing" secondItem="TJj-vW-PfU" secondAttribute="trailing" id="mvf-JY-tcB"/>
                         </constraints>
                     </view>
+                    <size key="freeformSize" width="390" height="1000"/>
                     <connections>
                         <outlet property="barcodeUIView" destination="5FG-vd-dbg" id="5aT-Ip-wmS"/>
                         <outlet property="dashUIView" destination="1fn-qS-UoX" id="6Vj-14-Wvr"/>

@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MovieDetailsViewController: UIViewController {
     
@@ -35,24 +37,28 @@ class MovieDetailsViewController: UIViewController {
     
     var movieID : Int = -1
     var movieName : String = ""
-    private let networkingAgent = AFNetworkingAgent.shared
+   // private let networkingAgent = AFNetworkingAgent.shared
+    private let movieModel : MovieModel = MovieModelImpl.shared
     private var casts = [Cast]()
     private var genres = [String]()
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initView()
         
-        fetchMovieDetails(id: movieID)
+        
     }
     
     fileprivate func initView(){
-        
-        print(movieID)
-        setUpDataSourceAndDelegate()
-        
         registerCell()
+        
+        setUpDataSourceAndDelegate()
+        fetchMovieDetails(id: movieID)
+       
+        
+        
     }
     
     
@@ -72,43 +78,51 @@ class MovieDetailsViewController: UIViewController {
     
     //MARK:- FetchMovieDetails
     fileprivate func fetchMovieDetails(id : Int){
-        networkingAgent.fetchMovieDetails(movieId: id) { response in
-            switch response {
-            case .success(let data):
+        
+        movieModel.fetchMovieDetails(movieId: id)
+            .subscribe(onNext: { data in
+
                 self.bindDetails(data)
-            case .error(let error):
-                debugPrint(error)
-            }
-        }
+            }).disposed(by: disposeBag)
+        
+//        movieModel.fetchMovieDetails(movieId: id) { response in
+//            switch response {
+//            case .success(let data):
+//                self.bindDetails(data)
+//            case .error(let error):
+//                debugPrint(error)
+//            }
+//        }
     }
     
-    fileprivate func bindDetails(_ data : MovieDetailsResponse){
+    fileprivate func bindDetails(_ data : MovieDetails){
         
-        let backDropPath = "\(AppConstants.BASE_ORIGINAL_IMG_URL)/\(data.data?.posterPath ?? "")"
+        let backDropPath = "\(AppConstants.BASE_ORIGINAL_IMG_URL)/\(data.posterPath ?? "")"
         
         ivBackDrop.sd_setImage(with: URL(string: backDropPath))
-        //Casts
-        casts = data.data?.casts ?? [Cast]()
-        collectionViewCast.reloadData()
         
         //Genre
-        genres = data.data?.genres ?? [String]()
-        debugPrint(genres)
+        genres = data.genres ?? [String]()
         collectionViewGenre.reloadData()
         
-        lblMovieTitle.text = data.data?.originalTitle
-        movieName = data.data?.originalTitle ?? ""
+        lblMovieTitle.text = data.originalTitle
+        movieName = data.originalTitle ?? ""
         
-        navigationItem.title = data.data?.originalTitle
-        lblDescription.text = data.data?.overview
-        let runTime = data.data?.runtime ?? 0
+        navigationItem.title = data.originalTitle
+        lblDescription.text = data.overview
+        let runTime = data.runtime ?? 0
         let runHour : Int = runTime / 60
         let runMinute : Int = runTime % 60
         lblDuration.text = "\(runHour)h \(runMinute)m"
-        imdbRation.text = "IMDb \(data.data?.rating ?? 0)"
+        imdbRation.text = "IMDb \(data.rating)"
         
         rationControl.starCount = 5
-        rationControl.rating = Int((data.data?.rating ?? 0.0) * 0.5)
+        rationControl.rating = Int((data.rating) * 0.5)
+        //Casts
+        casts = data.casts ?? [Cast]()
+        collectionViewCast.reloadData()
+        
+        
         
     }
     

@@ -21,27 +21,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="162" height="99"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oie-nk-4Na">
-                                <rect key="frame" x="0.0" y="0.0" width="162" height="78"/>
+                                <rect key="frame" x="0.0" y="8" width="162" height="61.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" systemColor="systemGray4Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOr-DJ-YCh">
-                                <rect key="frame" x="0.0" y="78" width="162" height="21"/>
+                                <rect key="frame" x="0.0" y="69.5" width="162" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" systemColor="systemGray4Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="IOr-DJ-YCh" secondAttribute="bottom" id="3RG-0r-czF"/>
+                            <constraint firstAttribute="bottom" secondItem="IOr-DJ-YCh" secondAttribute="bottom" constant="8" id="3RG-0r-czF"/>
                             <constraint firstAttribute="trailing" secondItem="oie-nk-4Na" secondAttribute="trailing" id="70p-sY-zMI"/>
+                            <constraint firstItem="IOr-DJ-YCh" firstAttribute="centerX" secondItem="ST0-vv-Ht4" secondAttribute="centerX" id="8q0-Ie-mdz"/>
                             <constraint firstItem="oie-nk-4Na" firstAttribute="leading" secondItem="ST0-vv-Ht4" secondAttribute="leading" id="FRZ-SY-vEs"/>
                             <constraint firstItem="IOr-DJ-YCh" firstAttribute="leading" secondItem="ST0-vv-Ht4" secondAttribute="leading" id="HI8-fj-Ebd"/>
                             <constraint firstItem="IOr-DJ-YCh" firstAttribute="top" secondItem="oie-nk-4Na" secondAttribute="bottom" id="PlU-yQ-zXI"/>
                             <constraint firstAttribute="trailing" secondItem="IOr-DJ-YCh" secondAttribute="trailing" id="QXw-Wi-Nyn"/>
-                            <constraint firstItem="oie-nk-4Na" firstAttribute="top" secondItem="ST0-vv-Ht4" secondAttribute="top" id="snO-ub-kQR"/>
+                            <constraint firstItem="oie-nk-4Na" firstAttribute="centerX" secondItem="ST0-vv-Ht4" secondAttribute="centerX" id="eVl-ys-dgw"/>
+                            <constraint firstItem="oie-nk-4Na" firstAttribute="top" secondItem="ST0-vv-Ht4" secondAttribute="top" constant="8" id="snO-ub-kQR"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
             </view>

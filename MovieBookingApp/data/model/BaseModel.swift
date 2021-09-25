@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import RxSwift
 
 class BaseModel: NSObject {
     
      let networkingAgent = AFNetworkingAgent.shared
+    
+    let dispseBag = DisposeBag()
 }

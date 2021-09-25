@@ -11,6 +11,7 @@
 //   let movieDetailsResponse = try? newJSONDecoder().decode(MovieDetailsResponse.self, from: jsonData)
 
 import Foundation
+import CoreData
 
 // MARK: - MovieDetailsResponse
 struct MovieDetailsResponse: Codable {
@@ -20,6 +21,10 @@ struct MovieDetailsResponse: Codable {
     
     enum CodingKeys: String, CodingKey {
         case code, message, data
+    }
+    
+    static func empty() -> MovieDetailsResponse{
+        return MovieDetailsResponse(code: nil, message: nil, data: nil)
     }
 }
 
@@ -42,6 +47,39 @@ struct MovieDetails: Codable {
         case genres, overview, rating, runtime
         case posterPath = "poster_path"
         case casts
+    }
+    static func empty() -> MovieDetails{
+        return MovieDetails(id: nil,
+                            originalTitle: nil,
+                            releaseDate: nil,
+                            genres: nil,
+                            overview: nil,
+                            rating: 0.0,
+                            runtime: nil,
+                            posterPath: nil,
+                            casts: nil)
+    }
+    @discardableResult
+    func toMovieEntity(context : NSManagedObjectContext) -> MovieEntity{
+        
+        let entity = MovieEntity(context: context)
+            
+        entity.id = Int64(id ?? 0)
+        entity.originalTitle = originalTitle
+        entity.releaseDate = releaseDate
+        entity.genres = genres?.map{String($0)}.joined(separator: ",")
+        entity.posterPath = posterPath
+        entity.rating = rating
+        entity.overview = overview
+        entity.runTime = Int64(runtime ?? 0)
+        
+        casts?.forEach{
+            entity.addToCasts($0.toCastEntity(context: context))
+        }
+        
+        
+        
+        return entity
     }
 }
 
@@ -67,6 +105,24 @@ struct Cast: Codable {
         case character
         case creditID = "credit_id"
         case order
+    }
+    
+    func  toCastEntity(context : NSManagedObjectContext) -> CastEntity {
+        let entity = CastEntity(context: context)
+        entity.id = Int32(id ?? 0)
+        entity.adault = adult ?? false
+        entity.gender = Int32(gender ?? 0)
+        entity.knowForDepartment = knownForDepartment
+        entity.name = name
+        entity.originalName = originalName
+        entity.popularity = popularity ?? 0.0
+        entity.profilePath = profilePath
+        entity.castID = Int32(castID ?? 0)
+        entity.character = character
+        entity.creditID = creditID
+        entity.order = Int64(order ?? 0)
+        
+        return entity
     }
 }
 

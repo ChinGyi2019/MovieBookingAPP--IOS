@@ -17,8 +17,9 @@ class NavigaionDrawerViewController: UIViewController {
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblEmail: UILabel!
     
-    private var userDefaultHelper = UserDefaultHelper.shared
-    private var networkingAgent = AFNetworkingAgent.shared
+    private let userDefaultHelper = UserDefaultHelper.shared
+    private let networkingAgent = AFNetworkingAgent.shared
+    private let userModel : UserModel = UserModelImpl.shared
     
     
     override func viewDidLoad() {
@@ -43,12 +44,11 @@ class NavigaionDrawerViewController: UIViewController {
     
         logout()
         
-        
     }
     
     //MARK:- Profile
     fileprivate func fetchUserProfile(){
-        networkingAgent.getProfile { response in
+        userModel.getProfile { response in
             switch response{
             case .success(let data):
                 self.bindProfileData(profile : data)
@@ -58,16 +58,16 @@ class NavigaionDrawerViewController: UIViewController {
         }
     }
     
-    fileprivate func bindProfileData(profile : ProfileResponse){
-        let backDropPath = "\(AppConstants.BASE_URL)/\( profile.data?.profileImage ?? "")"
-//        ivProfile.sd_setImage(with: URL(string: backDropPath), placeholderImage: UIImage(named: "dummy_prifile"))
-    
+    fileprivate func bindProfileData(profile : UserData?){
+        
+        let backDropPath = "\(AppConstants.BASE_URL)/\( profile?.profileImage ?? "")"
+        
         ivProfile.sd_setImage(with: URL(string: backDropPath))
-        let name : String = profile.data?.name ?? ""
+        let name : String = profile?.name ?? ""
         
         lblUserName.text = name
         
-        let email : String = profile.data?.email ?? ""
+        let email : String = profile?.email ?? ""
         lblEmail.text = email
     }
     
@@ -84,6 +84,10 @@ class NavigaionDrawerViewController: UIViewController {
                 self.showToast(message: error , font: .systemFont(ofSize: 14.0))
                 debugPrint(error)
             }
+        }
+        
+        userModel.deleteUser(id: 1) {
+            print("\($0)")
         }
     }
 }
